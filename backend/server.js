@@ -1,82 +1,32 @@
 /**
  * server.js — API REST Express
- *
- * Rotas:
- *   GET    /api/health              → status do servidor e token Apify
- *   GET    /api/sites               → listar sites
- *   POST   /api/sites               → criar site
- *   PUT    /api/sites/:id           → actualizar site
- *   DELETE /api/sites/:id           → eliminar site
- *   POST   /api/sites/:id/test      → testar actor Apify do site
- *   POST   /api/search              → iniciar busca (SSE streaming de progresso)
- *   GET    /api/search/history      → histórico de buscas
- *   GET    /api/apify/validate      → validar token Apify
- *   GET    /api/apify/actor/:id     → info de um actor
  */
 
 require('dotenv').config();
 
-const express     = require('express');
-const cors        = require('cors');
-const rateLimit   = require('express-rate-limit');
-const db          = require('./db');
-const apifySvc    = require('./apify.service');
-const dedupSvc    = require('./dedup.service');
-const path        = require('path');        // ← ADICIONA ESTA LINHA
+const express   = require('express');
+const cors      = require('cors');
+const rateLimit = require('express-rate-limit');
+const path      = require('path');
+const fs        = require('fs');
+const db        = require('./db');
+const apifySvc  = require('./apify.service');
+const dedupSvc  = require('./dedup.service');
+
 const app  = express();
 const PORT = process.env.PORT || 3001;
 
-app.get('/debug', (req, res) => {
-  const fs = require('fs');
-  const paths = [
-    path.join(__dirname, 'frontend/public'),
-    path.join(__dirname, '../frontend/public'),
-    path.join(__dirname, 'public'),
-    '/home/u895337781/domains/buscas.printonicsapp.fr/public_html/.builds/source/repository/frontend/public',
-    '/home/u895337781/domains/buscas.printonicsapp.fr/nodejs/frontend/public',
-  ];
-  
-  const result = {};
-  paths.forEach(p => {
-    result[p] = {
-      existe: fs.existsSync(p),
-      temIndex: fs.existsSync(path.join(p, 'index.html'))
-    };
-  });
-  
-  res.json({ __dirname, frontendPath: process.env.FRONTEND_PATH || 'não definido', paths: result });
-});
+// ── Caminho do frontend ───────────────────────────────────────────────────────
+
+const frontendPath = process.env.FRONTEND_PATH ||
+  '/home/u895337781/domains/buscas.printonicsapp.fr/public_html/.builds/source/repository/frontend/public';
 
 // ── Middlewares ───────────────────────────────────────────────────────────────
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-// Serve ficheiros estáticos
-const frontendPath = process.env.FRONTEND_PATH || path.join(__dirname, '../frontend/public');
-app.use(express.static(frontendPath));
-
-// Rota raiz explícita — garante que / carrega o index.html
-app.get('/', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
-});
-
-// Fallback para SPA — todas as rotas carregam o index.html
-app.get('*', (req, res) => {
-  const indexPath = path.join(frontendPath, 'index.html');
-  const fs = require('fs');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.status(404).json({ 
-      error: 'Frontend não encontrado', 
-      procurou: indexPath,
-      dirname: __dirname 
-    });
-  }
-});
-
-// Rate limiting
+// Rate limiting (só nas rotas de busca)
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max:      50,
@@ -84,14 +34,35 @@ const limiter = rateLimit({
 });
 app.use('/api/search', limiter);
 
-// Autenticação simples por API key (opcional, activar em produção)
+// Autenticação simples por API key (opcional)
 function authMiddleware(req, res, next) {
   const secret = process.env.API_SECRET;
-  if (!secret) return next();   // sem secret configurado → não autenticar
+  if (!secret) return next();
   const key = req.headers['x-api-key'] || req.query.key;
   if (key !== secret) return res.status(401).json({ error: 'Não autorizado' });
   next();
 }
+
+// ── Debug (remover após confirmar que funciona) ───────────────────────────────
+
+app.get('/debug', (req, res) => {
+  const paths = [
+    frontendPath,
+    path.join(__dirname, 'frontend/public'),
+    path.join(__dirname, '../frontend/public'),
+    path.join(__dirname, 'public'),
+  ];
+
+  const result = {};
+  paths.forEach(p => {
+    result[p] = {
+      existe:   fs.existsSync(p),
+      temIndex: fs.existsSync(path.join(p, 'index.html'))
+    };
+  });
+
+  res.json({ __dirname, frontendPath, paths: result });
+});
 
 // ── Health check ──────────────────────────────────────────────────────────────
 
@@ -172,12 +143,7 @@ app.post('/api/sites/:id/test', authMiddleware, async (req, res) => {
   }
 });
 
-// ── Busca com SSE (Server-Sent Events para progresso em tempo real) ────────────
-//
-//  O frontend liga-se a este endpoint via EventSource e recebe eventos:
-//    { type: 'progress', site, query, status, count }  — por site concluído
-//    { type: 'done',     results, grouped, stats }      — quando tudo termina
-//    { type: 'error',    error }                        — se houver falha geral
+// ── Busca com SSE ─────────────────────────────────────────────────────────────
 
 app.post('/api/search', authMiddleware, async (req, res) => {
   const { queries, siteIds, useCache = true } = req.body;
@@ -186,7 +152,6 @@ app.post('/api/search', authMiddleware, async (req, res) => {
     return res.status(400).json({ error: 'Pelo menos um termo de busca é necessário.' });
   }
 
-  // Determinar sites a usar
   const allSites = db.getSites().filter(s => s.active);
   const sites = siteIds?.length
     ? allSites.filter(s => siteIds.includes(s.id))
@@ -196,21 +161,15 @@ app.post('/api/search', authMiddleware, async (req, res) => {
     return res.status(400).json({ error: 'Nenhum site activo encontrado.' });
   }
 
-  // Configurar SSE
-  res.setHeader('Content-Type',  'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection',    'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no');   // nginx: desactivar buffering
+  res.setHeader('Content-Type',      'text/event-stream');
+  res.setHeader('Cache-Control',     'no-cache');
+  res.setHeader('Connection',        'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
 
-  const send = (data) => {
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
-
-  // Helper para enviar keepalive enquanto os actors correm
+  const send = (data) => res.write(`data: ${JSON.stringify(data)}\n\n`);
   const keepAlive = setInterval(() => res.write(': ping\n\n'), 15000);
 
   try {
-    // Verificar cache
     const cacheKey = JSON.stringify({ queries: queries.sort(), siteIds: (siteIds || []).sort() });
     if (useCache) {
       const cached = db.getCached(cacheKey);
@@ -226,26 +185,21 @@ app.post('/api/search', authMiddleware, async (req, res) => {
     }
 
     const concurrency = parseInt(process.env.DEFAULT_CONCURRENCY) || 3;
-
-    // Callback de progresso — enviado por SSE a cada site concluído
-    // Inclui siteId para o frontend poder actualizar o dot por ID (mais robusto que por nome)
-    const onProgress = (info) => send({ type: 'progress', ...info });
+    const onProgress  = (info) => send({ type: 'progress', ...info });
 
     const { results, errors } = await apifySvc.scrapeAll(sites, queries, concurrency, onProgress);
 
-    // Deduplicar
     const { grouped } = dedupSvc.deduplicate(results);
     const stats       = dedupSvc.summarize(results, grouped);
 
-    // Guardar cache e histórico
     db.setCache(cacheKey, results);
     db.saveSearch({
       queries,
-      siteIds: sites.map(s => s.id),
-      siteNames: sites.map(s => s.name),
+      siteIds:      sites.map(s => s.id),
+      siteNames:    sites.map(s => s.name),
       totalResults: results.length,
-      duplicated: grouped.length,
-      errors: errors.length
+      duplicated:   grouped.length,
+      errors:       errors.length
     });
 
     send({ type: 'done', results, grouped, stats, errors });
@@ -293,15 +247,6 @@ app.get('/api/apify/actor/:actorId(*)', async (req, res) => {
 });
 
 // ── Admin: BD ─────────────────────────────────────────────────────────────────
-//
-//  GET    /api/admin/db/info               → estado actual da BD
-//  POST   /api/admin/db/backup             → criar backup manual
-//  GET    /api/admin/db/backups            → listar backups disponiveis
-//  POST   /api/admin/db/restore/:filename  → restaurar backup
-//  DELETE /api/admin/db/cache              → limpar todo o cache (+ backup auto)
-//  DELETE /api/admin/db/cache/expired      → limpar so cache expirado
-//  DELETE /api/admin/db/all                → limpar cache + historico (+ backup auto)
-//  DELETE /api/admin/db/reset              → reset completo incluindo sites (CUIDADO)
 
 app.get('/api/admin/db/info', authMiddleware, (req, res) => {
   res.json(db.getDbInfo());
@@ -354,13 +299,32 @@ app.delete('/api/admin/db/reset', authMiddleware, (req, res) => {
   res.json({ ok: true, ...result });
 });
 
-// Limpeza automatica de cache expirado a cada hora
+// ── Limpeza automática de cache ───────────────────────────────────────────────
+
 setInterval(() => {
   const result = db.clearExpiredCache();
   if (result.removed > 0) {
     console.log(`[Auto] Cache expirado: ${result.removed} entradas removidas`);
   }
 }, 60 * 60 * 1000);
+
+// ── Frontend (DEVE SER O ÚLTIMO BLOCO) ───────────────────────────────────────
+// Serve ficheiros estáticos e SPA fallback DEPOIS de todas as rotas /api
+
+app.use(express.static(frontendPath));
+
+app.get('*', (req, res) => {
+  const indexPath = path.join(frontendPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).json({
+      error:    'Frontend não encontrado',
+      procurou: indexPath,
+      dirname:  __dirname
+    });
+  }
+});
 
 // ── Iniciar servidor ──────────────────────────────────────────────────────────
 

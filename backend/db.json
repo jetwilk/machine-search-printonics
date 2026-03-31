@@ -1,0 +1,440 @@
+{
+  "sites": [
+    {
+      "id": "8e730b57-0e75-4450-abf9-8ff20c2a1901",
+      "name": "Pressxchange",
+      "url": "https://www.pressxchange.com/",
+      "searchUrl": "https://www.pressxchange.com/en/search/searchterm/{query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.card.machine",
+        "brand": ".card-header",
+        "model": ".card-header h2 a",
+        "year": ".float-right",
+        "price": ".card-footer .btn-primary",
+        "condition": "",
+        "location": "",
+        "link": ".card-footer a.btn-secondary"
+      },
+      "actorInput": {
+        "waitUntil": "domcontentloaded"
+      },
+      "active": false,
+      "createdAt": "2026-03-18T23:53:36.532Z",
+      "updatedAt": "2026-03-27T23:29:05.673Z"
+    },
+    {
+      "id": "97cbd478-ed1c-41e8-b68b-199a0b4f767a",
+      "name": "Werktuigen",
+      "url": "https://www.werktuigen.com/",
+      "searchUrl": "https://www.werktuigen.com/main/search/index?search-word={query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": "section.grid-card",
+        "brand": "[data-grid=\"title\"] .me-1",
+        "model": "[data-grid=\"title\"] h2 span:last-child",
+        "year": ".description-preview b",
+        "price": "[data-grid=\"price\"] .h4 span",
+        "condition": ".description-preview b:first-child",
+        "location": ".country-name",
+        "link": "a[data-grid=\"title\"]"
+      },
+      "actorInput": {
+        "maxRequestsPerCrawl": 50,
+        "waitUntil": "domcontentloaded",
+        "fieldsMap": {
+          "year": [
+            "Year of construction"
+          ]
+        }
+      },
+      "active": false,
+      "createdAt": "2026-03-19T11:55:22.766Z",
+      "updatedAt": "2026-03-27T23:29:06.039Z"
+    },
+    {
+      "id": "b9209f24-0be2-403a-bfbd-1195c0d3618b",
+      "name": "Exapro",
+      "url": "https://www.exapro.com",
+      "searchUrl": "https://www.exapro.com/product-search/?text={query}",
+      "category": "Impressão Offset",
+      "region": "Global",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.ps-product",
+        "brand": ".ps-product__title__list",
+        "model": ".ps-product__title__list",
+        "year": ".badge-attribute:not(:first-child)",
+        "price": ".price strong",
+        "condition": "",
+        "location": ".badge-attribute span",
+        "link": ".ps-product__title__list"
+      },
+      "actorInput": {
+        "waitUntil": [
+          "networkidle2"
+        ],
+        "pageFunctionTimeoutSecs": 60,
+        "maxRequestRetries": 3
+      },
+      "active": false,
+      "createdAt": "2026-03-19T12:54:30.496Z",
+      "updatedAt": "2026-03-27T23:29:06.220Z"
+    },
+    {
+      "id": "d2947695-0f65-4a3f-b51f-d57cc2662616",
+      "name": "PressCity",
+      "url": "https://www.presscity.com",
+      "searchUrl": "https://presscity.com/en/?q={query}&page=search",
+      "category": "Impressão Offset",
+      "region": "Global",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": "div.card.search-result-card",
+        "brand": ".card-body h2 a",
+        "model": ".card-body h2 a",
+        "year": ".card-body h2 a",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ".card-body h2 a"
+      },
+      "actorInput": {
+        "waitUntil": [
+          "networkidle2"
+        ],
+        "maxRequestsPerCrawl": 50
+      },
+      "active": false,
+      "createdAt": "2026-03-19T16:18:45.972Z",
+      "updatedAt": "2026-03-27T23:29:06.378Z"
+    },
+    {
+      "id": "c5ba98b6-05de-4473-9056-383e6bcc3311",
+      "name": "Machineseeker",
+      "url": "https://www.machineseeker.pt/",
+      "searchUrl": "https://www.machineseeker.com/main/search/index?search-word={query}",
+      "category": "Impressão Offset",
+      "region": "Global",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "section.grid-card.grid-card-border",
+        "brand": ".grid-body h2 span.me-1",
+        "model": ".grid-body h2 span:last-child",
+        "year": ".description-preview b:nth-of-type(2)",
+        "price": ".price .h4",
+        "condition": ".description-preview b:first-of-type",
+        "location": ".trader-location .country-name",
+        "link": ".grid-body a[data-grid=\"title\"]"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T20:52:17.812Z",
+      "updatedAt": "2026-03-27T23:29:06.549Z"
+    },
+    {
+      "id": "bdb15e56-d5a7-4c7b-8075-ee4c47380a58",
+      "name": "IndiaMart",
+      "url": "https://export.indiamart.com/",
+      "searchUrl": "https://export.indiamart.com/search.php?ss={query}",
+      "category": "Impressão Offset",
+      "region": "India",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": ".bg-white.rounded-lg.overflow-hidden.border.border-gray-200",
+        "brand": "a.font-semibold.line-clamp-3",
+        "model": "",
+        "year": "",
+        "price": ".text-gray-900 span",
+        "condition": "",
+        "location": "",
+        "link": "a.line-clamp-3"
+      },
+      "actorInput": {
+        "waitUntil": [
+          "networkidle2"
+        ],
+        "pageLoadTimeoutSecs": 30,
+        "pageFunctionTimeoutSecs": 30
+      },
+      "active": false,
+      "createdAt": "2026-03-19T21:08:57.434Z",
+      "updatedAt": "2026-03-27T23:23:55.062Z"
+    },
+    {
+      "id": "f301f8ac-c045-4160-995a-907fb51b89bd",
+      "name": "AllForPrintMarket",
+      "url": "https://allforprintmarket.com",
+      "searchUrl": "https://allforprintmarket.com/jsf/jet-engine:produse/meta/_stock_status:instock/?s={query}&jet_ajax_search_settings={%22search_source%22:%22product%22,%22results_order_by%22:%22date%22,%22results_order%22:%22desc%22}&post_type=product",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": ".jet-listing-grid__item",
+        "brand": ".product-attributes:first-of-type li a",
+        "model": "h4.elementor-heading-title a",
+        "year": ".product-attributes:last-of-type li a",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ".jet-listing-dynamic-image__link"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T21:37:11.909Z",
+      "updatedAt": "2026-03-27T23:29:06.707Z"
+    },
+    {
+      "id": "858c7440-c3c4-4dd6-8ff3-6f3e06d89ebd",
+      "name": "GoK-Karakus",
+      "url": "https://www.gok-karakus.de",
+      "searchUrl": "https://www.gok-karakus.de/machinerylist.php?search={query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.post",
+        "brand": "table.specs tr:nth-child(3) td:last-child",
+        "model": "table.specs tr:nth-child(4) td:last-child",
+        "year": "table.specs tr:nth-child(2) td:last-child",
+        "price": "table.specs tr:nth-child(8) td:last-child",
+        "condition": "",
+        "location": "",
+        "link": "h2.machineTitle a"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T22:10:07.495Z",
+      "updatedAt": "2026-03-27T23:29:06.864Z"
+    },
+    {
+      "id": "640008f2-abba-461f-a584-02e91b1d6729",
+      "name": "Reiser-gm",
+      "url": "https://www.reiser-gm.de/",
+      "searchUrl": "https://www.reiser-gm.de/en/listings?q={query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.listing__wrapper",
+        "brand": "div.listing__title a span",
+        "model": "div.listing__title a span",
+        "year": "div.listing__title a span",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": "div.listing__title a"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T22:45:56.431Z",
+      "updatedAt": "2026-03-27T23:29:07.067Z"
+    },
+    {
+      "id": "9579aa86-690f-484a-8752-803f826c6524",
+      "name": "OffsetPoint",
+      "url": "https://www.offsetpoint.com/",
+      "searchUrl": "https://www.offsetpoint.com/en/machines/search?q={query}&CategoryId=1&PrintingUnitsFrom=&PrintingUnitsTo=&ImpressionMiosTo=&PrintingFormatId=&ConstructionYearFrom=&ConstructionYearTo=",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": ".op-machine",
+        "brand": ".op-machine-col1 .op-machine-info:nth-child(2)",
+        "model": ".op-machine-col1 .op-machine-info:nth-child(3)",
+        "year": ".op-machine-col1 .op-machine-info:nth-child(5)",
+        "price": ".op-machine-col2 .op-machine-info:last-child",
+        "condition": "",
+        "location": ".op-machine-col2 .op-machine-info:nth-last-child(2)",
+        "link": ".op-machine-img"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T23:33:10.247Z",
+      "updatedAt": "2026-03-27T23:29:07.330Z"
+    },
+    {
+      "id": "e5e36798-b425-4422-9972-f45a64510272",
+      "name": "Pressdepo",
+      "url": "https://www.pressdepo.com",
+      "searchUrl": "https://www.pressdepo.com/search/en-category-/{query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": ".list_m",
+        "brand": ".list_mname a",
+        "model": ".list_mname a",
+        "year": ".List_age",
+        "price": ".listing-price",
+        "condition": "",
+        "location": "#list_items #list_refno",
+        "link": ".list_mname a"
+      },
+      "actorInput": {
+        "waitUntil": [
+          "networkidle2"
+        ]
+      },
+      "active": false,
+      "createdAt": "2026-03-20T13:26:57.138Z",
+      "updatedAt": "2026-03-27T23:29:07.548Z"
+    },
+    {
+      "id": "08dc418f-9148-49a6-b99b-13f73863af5f",
+      "name": "Wotol",
+      "url": "https://www.wotol.com/",
+      "searchUrl": "https://www.wotol.com/product/search?q={query}&perPage=100&page=1",
+      "category": "Impressão Offset",
+      "region": "USA",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": ".horizontal-card",
+        "brand": ".horizontal-card__title [itemprop=\"name\"]",
+        "model": ".horizontal-card__title [itemprop=\"name\"]",
+        "year": ".additional-info small:first-child span",
+        "price": ".horizontal-card__price span",
+        "condition": "",
+        "location": ".additional-info small:last-child span",
+        "link": ".horizontal-card__title"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-25T19:45:30.061Z",
+      "updatedAt": "2026-03-27T23:29:02.766Z"
+    },
+    {
+      "id": "07a2723a-40ce-4004-8137-4a42a11262ef",
+      "name": "Machinio",
+      "url": "https://www.machinio.com/",
+      "searchUrl": "https://www.machinio.com/listings?search={query}&location=",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": "",
+        "brand": "",
+        "model": "",
+        "year": "",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ""
+      },
+      "actorInput": {
+        "pageFunction": "async function pageFunction(context) { const { $, request, log } = context; const results = []; $('.c-listing-card').each(function() { const el = $(this); const getSpec = (label) => { let val = 'N/D'; el.find('.c-listing-card__spec').each(function() { if ($(this).find('.c-listing-card__spec-name').text().includes(label)) { val = $(this).find('.c-listing-card__spec-value').text().trim(); } }); return val; }; const titleText = el.find('.c-listing-card__title').first().text().trim(); const yearMatch = titleText.match(/^(\\d{4})/); const ano = yearMatch ? yearMatch[1] : 'N/D'; const locEl = el.find('.c-listing-card__location').clone(); locEl.find('span').remove(); const loc = locEl.text().trim(); const linkEl = el.find('.c-listing-card__title').first(); let link = linkEl.attr('href') || ''; if (link && !link.startsWith('http')) { link = new URL(link, request.url).href; } const item = { brand: getSpec('Manufacturer'), model: getSpec('Model'), year: ano, price: '—', condition: 'N/D', location: loc, url: link }; if (item.brand !== 'N/D' || item.model !== 'N/D') { results.push(item); } }); log.info('Extraídos ' + results.length + ' itens'); return results; }"
+      },
+      "active": false,
+      "createdAt": "2026-03-27T19:35:21.106Z",
+      "updatedAt": "2026-03-27T23:29:08.359Z"
+    },
+    {
+      "id": "88c5a268-97fb-47c6-af18-3908ee1e1391",
+      "name": "Machinedalal",
+      "url": "https://machinedalal.com/",
+      "searchUrl": "https://machinedalal.com/search/{query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": "",
+        "brand": "",
+        "model": "",
+        "year": "",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ""
+      },
+      "actorInput": {
+        "maxPages": 5,
+        "waitUntil": [
+          "networkidle2"
+        ],
+        "pageFunction": "async function pageFunction(context) { const { jQuery: $, request, log } = context; await new Promise(r => setTimeout(r, 5000)); const results = []; $('#search-list li').each(function() { const el = $(this); const titleText = el.find('h4 a').text().trim(); const parts = titleText.split(' - '); const brand = parts[0] ? parts[0].trim() : 'N/D'; const model = parts[1] ? parts[1].trim() : 'N/D'; const btns = el.find('.cateBrand_btns button'); let ano = 'N/D'; let location = 'N/D'; btns.each(function() { const txt = $(this).text().trim(); if (/^\\d{4}$/.test(txt)) { ano = txt; } else if (txt && !$(this).find('img').length && !/^\\d{4}$/.test(txt) && txt !== 'Sheet Fed / Offset') { location = txt; } }); let link = el.find('h4 a').attr('href') || ''; if (link && !link.startsWith('http')) { link = new URL(link, request.url).href; } const item = { brand, model, year: ano, price: '—', condition: 'N/D', location, url: link }; if (brand !== 'N/D') { results.push(item); } }); log.info('Extraídos ' + results.length + ' itens de ' + request.url); return results; }"
+      },
+      "active": false,
+      "createdAt": "2026-03-27T19:42:27.174Z",
+      "updatedAt": "2026-03-27T23:29:02.198Z"
+    },
+    {
+      "id": "e2753c67-5fb3-4608-ae6e-91361ac26b34",
+      "name": "Printing Press",
+      "url": "https://www.printing-press.biz/",
+      "searchUrl": "https://www.printing-press.biz/ads/search-ad/?awpcp-step=dosearch&keywordphrase={query}&results=80",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/puppeteer-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": ".awpcp-listing-excerpt",
+        "brand": ".awpcp-listing-title a",
+        "model": "",
+        "year": ".awpcp-listing-excerpt-content",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ".awpcp-listing-title a"
+      },
+      "actorInput": {
+        "startUrls": [
+          {
+            "url": "https://www.printing-press.biz/ads/search-ad/?awpcp-step=dosearch&keywordphrase=ryobi&results=100"
+          }
+        ],
+        "pageFunction": "async function pageFunction(context) {\n    const { page, request, log } = context;\n\n    // Aguardar que os anúncios carreguem\n    await page.waitForSelector('.awpcp-listing-excerpt', { timeout: 10000 }).catch(() => {});\n\n    const results = await page.evaluate(() => {\n        const items = [];\n        document.querySelectorAll('.awpcp-listing-excerpt').forEach(el => {\n            const titulo    = el.querySelector('.awpcp-listing-title a')?.innerText.trim() || '';\n            const link      = el.querySelector('.awpcp-listing-title a')?.href || '';\n            const descricao = el.querySelector('.awpcp-listing-excerpt-content')?.innerText.trim() || '';\n            const extra     = el.querySelector('.awpcp-listing-excerpt-extra')?.innerText.trim() || '';\n            const imagem    = el.querySelector('.awpcp-listing-primary-image-thumbnail')?.src || '';\n\n            const marca  = titulo.split(' ')[0] || 'N/D';\n            const modelo = titulo.replace(marca, '').trim() || 'N/D';\n\n            const anoMatch  = descricao.match(/age\\s+(\\d{4})/i);\n            const ano       = anoMatch ? anoMatch[1] : 'N/D';\n\n            const precoMatch = extra.match(/€[\\d.,]+/);\n            const preco      = precoMatch ? precoMatch[0] : 'N/D';\n\n            items.push({ marca, modelo, titulo, ano, preco, link, imagem });\n        });\n        return items;\n    });\n\n    return results;\n}",
+        "proxyConfiguration": {
+          "useApifyProxy": true,
+          "apifyProxyGroups": [
+            "RESIDENTIAL"
+          ]
+        },
+        "maxRequestsPerCrawl": 50,
+        "maxConcurrency": 3,
+        "launchContext": {
+          "launchOptions": {
+            "headless": true
+          }
+        }
+      },
+      "active": true,
+      "createdAt": "2026-03-27T23:10:55.620Z",
+      "updatedAt": "2026-03-27T23:29:57.071Z"
+    }
+  ],
+  "searches": [],
+  "cache": []
+}

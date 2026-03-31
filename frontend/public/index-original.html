@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pesquisa de Máquinas - Printonics</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f5f4f0;
+  --surface:  #ffffff;
+  --border:   #e2e0d8;
+  --border2:  #c8c5bb;
+  --text:     #1a1916;
+  --muted:    #000dc2;
+  --hint:     #190088;
+  --accent:   #1a1916;
+  --green:    #1d6b4f;
+  --green-bg: #eaf4ee;
+  --amber:    #7a4f0d;
+  --amber-bg: #fdf3e1;
+  --red:      #8b1f1f;
+  --red-bg:   #fdf0f0;
+  --blue:     #1a3f6b;
+  --blue-bg:  #eef4fd;
+  --radius:   10px;
+  --radius-sm:6px;
+}
+
+body {
+  font-family: 'Georgia', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Layout ── */
+.shell { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+
+header {
+  padding: 2rem 0 1.5rem;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+header h1 { font-size: 1.4rem; font-weight: normal; letter-spacing: -0.01em; }
+header span { font-size: 0.8rem; color: var(--hint); font-family: monospace; }
+
+/* ── Tabs ── */
+nav { display: flex; gap: 0; border-bottom: 0.5px solid var(--border); margin-bottom: 2rem; }
+.tab {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  border-bottom: 1.5px solid transparent;
+  margin-bottom: -0.5px;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  transition: color 0.15s;
+}
+.tab:hover { color: var(--text); }
+.tab.on { color: var(--text); border-bottom-color: var(--text); }
+.tab-badge {
+  display: inline-block;
+  background: var(--blue-bg);
+  color: var(--blue);
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 10px;
+  margin-left: 4px;
+  font-family: monospace;
+}
+
+.pane { display: none; }
+.pane.on { display: block; }
+
+/* ── Search bar ── */
+.search-wrap { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+.pills-field {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  border: 0.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  background: var(--surface);
+  cursor: text;
+  min-height: 44px;
+}
+.pills-field:focus-within { border-color: var(--text); }
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 0.78rem;
+  font-family: monospace;
+}
+.pill button { border: none; background: none; cursor: pointer; color: var(--hint); font-size: 0.9rem; line-height: 1; }
+.pill button:hover { color: var(--red); }
+#term-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: 'Georgia', serif;
+  color: var(--text);
+  min-width: 160px;
+  flex: 1;
+}
+.btn {
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border2);
+  background: transparent;
+  font-family: 'Georgia', serif;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.12s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--border); }
+.btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
+.btn.primary:hover { opacity: 0.85; }
+.btn.danger { color: var(--red); border-color: #e8c5c5; }
+.btn.danger:hover { background: var(--red-bg); }
+.btn.sm { padding: 5px 11px; font-size: 0.78rem; }
+
+/* ── Section labels ── */
+.label { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--hint); text-transform: uppercase; margin-bottom: 0.6rem; }
+
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 8px;
+}
+.row { display: flex; align-items: center; gap: 10px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot.green { background: #2d9b6a; }
+.dot.gray  { background: var(--hint); }
+.dot.amber { background: #d4820a; }
+.dot.red   { background: #c94040; }
+.name { font-size: 0.9rem; }
+.sub  { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+.tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+.tag  { font-size: 0.68rem; padding: 2px 7px; border-radius: 12px; border: 0.5px solid var(--border); color: var(--muted); font-family: monospace; }
+.tag.green { background: var(--green-bg); color: var(--green); border-color: transparent; }
+.tag.blue  { background: var(--blue-bg);  color: var(--blue);  border-color: transparent; }
+.tag.amber { background: var(--amber-bg); color: var(--amber); border-color: transparent; }
+
+/* ── Progress ── */
+#prog-wrap { display: none; margin-top: 1.5rem; }
+.prog-bar { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; margin: 6px 0 10px; }
+.prog-fill { height: 100%; background: var(--text); border-radius: 2px; transition: width 0.35s; }
+.prog-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.prog-item  { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; color: var(--muted); font-family: monospace; }
+
+/* ── Stats grid ── */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+.stat { background: var(--bg); border-radius: var(--radius-sm); padding: 10px 12px; }
+.stat .n { font-size: 1.5rem; font-weight: normal; }
+.stat .l { font-size: 0.7rem; color: var(--muted); margin-bottom: 3px; }
+
+/* ── Table ── */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th {
+  text-align: left;
+  padding: 7px 10px;
+  font-size: 0.68rem;
+  font-weight: normal;
+  color: var(--hint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 0.5px solid var(--border);
+  white-space: nowrap;
+}
+td { padding: 9px 10px; border-bottom: 0.5px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafaf8; }
+.sort { background: none; border: none; cursor: pointer; color: var(--hint); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; font-family: inherit; }
+.sort.asc::after  { content: ' ▲'; }
+.sort.desc::after { content: ' ▼'; }
+.badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 0.68rem; font-family: monospace; }
+.badge.new  { background: var(--green-bg); color: var(--green); }
+.badge.used { background: var(--amber-bg); color: var(--amber); }
+.badge.nd   { background: var(--bg);       color: var(--hint);  }
+.price-good { color: var(--green); font-family: monospace; }
+a.lnk { color: var(--blue); text-decoration: none; font-family: monospace; font-size: 0.75rem; }
+a.lnk:hover { text-decoration: underline; }
+
+/* ── Filters row ── */
+.filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.filters input, .filters select { font-size: 0.82rem; font-family: 'Georgia', serif; }
+.filters input { width: 180px; }
+.filters .spacer { flex: 1; }
+.cnt { font-size: 0.75rem; color: var(--muted); font-family: monospace; }
+
+/* ── Dedup groups ── */
+.group-block { border: 0.5px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; }
+.group-hd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg);
+  cursor: pointer;
+  user-select: none;
+}
+.group-hd:hover { background: #eeecea; }
+.group-title { flex: 1; font-size: 0.9rem; }
+.group-body { display: none; }
+.group-body.open { display: block; }
+.g-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 14px;
+  border-top: 0.5px solid var(--border);
+  font-size: 0.8rem;
+}
+.g-site { color: var(--muted); font-family: monospace; font-size: 0.72rem; }
+.g-price { font-family: monospace; color: var(--green); }
+.g-loc { color: var(--muted); font-size: 0.72rem; }
+.best-label {
+  font-size: 0.65rem;
+  background: var(--green-bg);
+  color: var(--green);
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 5px;
+  font-family: monospace;
+}
+
+/* ── Backoffice form ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
+.fg input, .fg select, .fg textarea {
+  font-size: 0.85rem;
+  font-family: 'Georgia', serif;
+  border: 0.5px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  background: var(--surface);
+  color: var(--text);
+  width: 100%;
+}
+.fg textarea { min-height: 64px; resize: vertical; }
+.fg.full { grid-column: span 2; }
+.sel-grid { display: grid; grid-template-columns: 120px 1fr; gap: 8px; align-items: center; margin-bottom: 6px; }
+.sel-grid label { font-size: 0.72rem; color: var(--muted); }
+.apify-box {
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+.apify-hd { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.alogo { width: 20px; height: 20px; background: #7ac45a; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; color: white; font-family: monospace; flex-shrink: 0; }
+
+/* ── Modal ── */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 100; align-items: flex-start; justify-content: center; padding-top: 5vh; overflow-y: auto; }
+.overlay.open { display: flex; }
+.modal { background: var(--surface); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 1.5rem; width: 580px; max-width: 95vw; }
+.modal-title { font-size: 1rem; font-weight: normal; margin-bottom: 1.25rem; }
+.modal-foot { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.25rem; border-top: 0.5px solid var(--border); padding-top: 1rem; }
+.test-res { font-size: 0.78rem; padding: 8px 10px; border-radius: var(--radius-sm); margin-top: 8px; font-family: monospace; display: none; }
+.test-res.ok  { background: var(--green-bg); color: var(--green); }
+.test-res.err { background: var(--red-bg);   color: var(--red);   }
+
+/* ── Empty ── */
+.empty { text-align: center; padding: 3rem 1rem; color: var(--hint); }
+.empty p { font-size: 0.85rem; margin-top: 6px; }
+
+/* ── History ── */
+.hist-item { display: flex; align-items: center; gap: 10px; }
+.hist-terms { font-family: monospace; font-size: 0.85rem; }
+.hist-meta  { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+
+/* ── Connection banner ── */
+.conn-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  margin-bottom: 1.25rem;
+  font-family: monospace;
+}
+.conn-banner.ok  { background: var(--green-bg); color: var(--green); }
+.conn-banner.err { background: var(--amber-bg); color: var(--amber); }
+
+@media (max-width: 640px) {
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  .fg.full { grid-column: span 1; }
+  .g-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <h1>Machine Search</h1>
+    <span id="api-status">a verificar ligação...</span>
+  </header>
+
+  <nav>
+    <button class="tab on"  onclick="go('search')">Busca</button>
+    <button class="tab"     onclick="go('results')">Resultados <span class="tab-badge" id="rb" style="display:none"></span></button>
+    <button class="tab"     onclick="go('dedup')">Agrupados <span class="tab-badge" id="db" style="display:none"></span></button>
+    <button class="tab"     onclick="go('back')">Backoffice</button>
+    <button class="tab"     onclick="go('hist')">Histórico</button>
+  </nav>
+
+  <!-- ── SEARCH ── -->
+  <div id="pane-search" class="pane on">
+    <div class="label">Termos de busca</div>
+    <div class="search-wrap">
+      <div class="pills-field" onclick="document.getElementById('term-input').focus()">
+        <div id="pills"></div>
+        <input id="term-input" placeholder="ex: sm52 — pressione Enter para adicionar" onkeydown="termKey(event)" />
+      </div>
+      <button class="btn primary" onclick="runSearch()">Pesquisar →</button>
+    </div>
+
+    <div class="label">Sites activos</div>
+    <div id="active-list"></div>
+
+    <div id="prog-wrap">
+      <div class="label" style="margin-top:1rem;">A pesquisar via Apify <span id="prog-pct" style="font-family:monospace;"></span></div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="prog-items" id="prog-items"></div>
+    </div>
+  </div>
+
+  <!-- ── RESULTS ── -->
+  <div id="pane-results" class="pane">
+    <div class="stats" id="stats">
+      <div class="stat"><div class="l">Resultados</div><div class="n" id="s-tot">—</div></div>
+      <div class="stat"><div class="l">Sites</div><div class="n" id="s-sites">—</div></div>
+      <div class="stat"><div class="l">Agrupados</div><div class="n" id="s-dup">—</div></div>
+    </div>
+    <div class="filters">
+      <input id="f-text" placeholder="filtrar..." oninput="renderFlat()" />
+      <select id="f-site" onchange="renderFlat()"><option value="">Todos os sites</option></select>
+      <input id="f-ano-min" type="number" placeholder="Ano mín." min="1970" max="2030" style="width:90px;" oninput="renderFlat()" />
+      <input id="f-ano-max" type="number" placeholder="Ano máx." min="1970" max="2030" style="width:90px;" oninput="renderFlat()" />
+      <div class="spacer"></div>
+      <span class="cnt" id="flat-cnt"></span>
+      <button class="btn sm" onclick="exportCSV()">CSV</button>
+      <button class="btn sm" onclick="exportXLS()">Excel</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th><button class="sort" onclick="srt('brand')">Marca</button></th>
+          <th><button class="sort" onclick="srt('model')">Modelo</button></th>
+          <th><button class="sort" onclick="srt('year')">Ano</button></th>
+          <th>Site</th>
+          <th>Link</th>
+        </tr></thead>
+        <tbody id="flat-body"></tbody>
+      </table>
+    </div>
+    <div id="flat-empty" class="empty"><p>Execute uma busca para ver resultados aqui.</p></div>
+  </div>
+
+  <!-- ── DEDUP ── -->
+  <div id="pane-dedup" class="pane">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <div>
+        <div class="label" style="margin:0;">Equipamentos agrupados</div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:4px;">Mesma máquina encontrada em vários sites</p>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn sm" onclick="exportDedupCSV()">CSV</button>
+        <button class="btn sm" onclick="exportDedupXLS()">Excel</button>
+      </div>
+    </div>
+    <div id="dedup-list"></div>
+    <div id="dedup-empty" class="empty"><p>Nenhum agrupamento ainda. Execute uma busca com vários sites.</p></div>
+  </div>
+
+  <!-- ── BACKOFFICE ── -->
+  <div id="pane-back" class="pane">
+    <div id="conn-banner" class="conn-banner" style="display:none;"></div>
+    <div class="apify-box">
+      <div class="apify-hd">
+        <div class="alogo">A</div>
+        <span style="font-size:0.85rem;">Configuração Apify</span>
+      </div>
+      <div class="form-grid">
+        <div class="fg"><label>API Token</label><input type="password" id="g-token" placeholder="apify_api_..." /></div>
+        <div class="fg"><label>Concorrência (sites em paralelo)</label>
+          <select id="g-conc"><option value="1">1 — sequencial</option><option value="3" selected>3 — recomendado</option><option value="5">5 — rápido</option><option value="10">10 — máximo</option></select>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn sm" onclick="saveGlobal()">Guardar configuração</button>
+        <button class="btn sm" onclick="testToken()">Testar token →</button>
+      </div>
+      <div id="token-res" class="test-res"></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <div class="label" style="margin:0;">Sites cadastrados</div>
+      <button class="btn primary sm" onclick="openModal()">+ Novo site</button>
+    </div>
+    <div id="bo-list"></div>
+  </div>
+
+  <!-- ── HISTORY ── -->
+  <div id="pane-hist" class="pane">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <div class="label" style="margin:0;">Histórico de buscas</div>
+      <button class="btn danger sm" onclick="clearHist()">Limpar</button>
+    </div>
+    <div id="hist-list"></div>
+  </div>
+</div>
+
+<!-- ── MODAL ── -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title" id="modal-ttl">Cadastrar site</div>
+    <p class="label">Informações básicas</p>
+    <div class="form-grid">
+      <div class="fg"><label>Nome *</label><input id="f-name" placeholder="ex: IronPlanet" /></div>
+      <div class="fg"><label>URL base *</label><input id="f-url" placeholder="https://www.ironplanet.com" /></div>
+      <div class="fg"><label>URL de busca (use {query})</label><input id="f-surl" placeholder="https://site.com/search?q={query}" /></div>
+      <div class="fg"><label>Categoria</label>
+        <select id="f-cat"><option>Impressão Offset</option><option>Impressão Digital</option><option>Encadernação</option><option>Máquinas em Geral</option><option>Peças e Suprimentos</option></select>
+      </div>
+      <div class="fg"><label>Região</label><input id="f-reg" placeholder="ex: Europa, Brasil, Global" /></div>
+      <div class="fg"><label>Moeda</label>
+        <select id="f-cur"><option>EUR (€)</option><option>BRL (R$)</option><option>USD ($)</option><option>GBP (£)</option></select>
+      </div>
+    </div>
+    <p class="label" style="margin-top:4px;">Configuração Apify</p>
+    <div class="form-grid">
+      <div class="fg"><label>Actor ID</label><input id="f-actor" placeholder="apify/cheerio-scraper" /></div>
+      <div class="fg"><label>Timeout (segundos)</label><input type="number" id="f-timeout" value="90" min="10" max="600" /></div>
+      <div class="fg full"><label>Input JSON adicional (opcional)</label><textarea id="f-extra" placeholder='{"maxRequestsPerCrawl": 50}'></textarea></div>
+    </div>
+    <p class="label" style="margin-top:4px;">Selectores CSS dos campos</p>
+    <div class="sel-grid"><label>Container (lista)</label><input id="s-cont"  placeholder=".listing-item, .product-card" /></div>
+    <div class="sel-grid"><label>Marca</label>             <input id="s-brand" placeholder=".brand-name, [data-brand]" /></div>
+    <div class="sel-grid"><label>Modelo</label>            <input id="s-model" placeholder="h3.title, .model-name" /></div>
+    <div class="sel-grid"><label>Ano</label>               <input id="s-year"  placeholder=".spec-year, [data-year]" /></div>
+    <div class="sel-grid"><label>Preço</label>             <input id="s-price" placeholder=".price, .listing-price" /></div>
+    <div class="sel-grid"><label>Condição</label>          <input id="s-cond"  placeholder=".condition-badge" /></div>
+    <div class="sel-grid"><label>Localização</label>       <input id="s-loc"   placeholder=".location, .city" /></div>
+    <div class="sel-grid"><label>Link do item</label>      <input id="s-link"  placeholder="a.product-link" /></div>
+    <div id="modal-test-res" class="test-res"></div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn" onclick="testActor()">Testar actor</button>
+      <button class="btn primary" onclick="saveSite()">Guardar site</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+const API = 'http://192.168.1.240:3001/api';   // Mudar para URL de produção
+
+// ── Estado ────────────────────────────────────────────────────────────────────
+let terms   = [];
+let results = [];
+let grouped = [];
+let sites   = [];
+let hist    = [];
+let editId  = null;
+let flatSort = { col: null, dir: 'asc' };
+let totalTasks = 0, doneTasks = 0;
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+function go(tab) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('pane-'+tab).classList.add('on');
+  [...document.querySelectorAll('.tab')].find(t => t.textContent.trim().startsWith({search:'Busca',results:'Resultados',dedup:'Agrupados',back:'Backoffice',hist:'Histórico'}[tab])).classList.add('on');
+  if (tab === 'back')    loadBO();
+  if (tab === 'hist')   loadHist();
+  if (tab === 'results') renderFlat();
+  if (tab === 'dedup')  renderDedup();
+  if (tab === 'search') renderSearch();
+}
+
+// ── Health check ──────────────────────────────────────────────────────────────
+async function checkHealth() {
+  try {
+    const r = await fetch(`${API}/health`);
+    const d = await r.json();
+    const el = document.getElementById('api-status');
+    if (d.apify.connected) {
+      el.textContent = `ligado — Apify: ${d.apify.user}`;
+      el.style.color = '#1d6b4f';
+    } else {
+      el.textContent = d.apify.configured ? 'token Apify inválido' : 'token Apify em falta';
+      el.style.color = '#7a4f0d';
+    }
+  } catch {
+    document.getElementById('api-status').textContent = 'backend offline — confirma que o servidor está a correr';
+    document.getElementById('api-status').style.color = '#8b1f1f';
+  }
+}
+
+// ── Pills ─────────────────────────────────────────────────────────────────────
+function termKey(e) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const v = e.target.value.trim().replace(/,$/, '');
+    if (v && !terms.includes(v)) { terms.push(v); renderPills(); }
+    e.target.value = '';
+  }
+}
+function renderPills() {
+  document.getElementById('pills').innerHTML = terms.map((t,i) =>
+    `<span class="pill">${t}<button onclick="rmTerm(${i})">×</button></span>`).join('');
+}
+function rmTerm(i) { terms.splice(i, 1); renderPills(); }
+
+// ── Sites list na aba Busca ───────────────────────────────────────────────────
+async function renderSearch() {
+  if (!sites.length) await loadSites();
+  const active = sites.filter(s => s.active);
+  document.getElementById('active-list').innerHTML = active.length
+    ? active.map(s => `
+        <div class="card">
+          <div class="row">
+            <div class="dot green"></div>
+            <div style="flex:1">
+              <div class="name">${s.name}</div>
+              <div class="tags">
+                <span class="tag">${s.category||''}</span>
+                <span class="tag">${s.region||''}</span>
+                <span class="tag">${s.currency||''}</span>
+                ${s.actorId ? `<span class="tag blue">A: ${s.actorId}</span>` : ''}
+              </div>
+            </div>
+            <button class="btn danger sm" onclick="toggleSite('${s.id}')">Desactivar</button>
+          </div>
+        </div>`).join('')
+    : '<p style="font-size:0.82rem;color:var(--hint);">Nenhum site activo. Vai ao Backoffice para activar sites.</p>';
+}
+
+async function toggleSite(id) {
+  const s = sites.find(x => x.id === id);
+  if (!s) return;
+  await fetch(`${API}/sites/${id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ active: !s.active }) });
+  await loadSites();
+  renderSearch();
+}
+
+// ── BUSCA com SSE ─────────────────────────────────────────────────────────────
+async function runSearch() {
+  const v = document.getElementById('term-input').value.trim();
+  if (v && !terms.includes(v)) { terms.push(v); document.getElementById('term-input').value = ''; renderPills(); }
+  if (!terms.length) { alert('Adiciona pelo menos um termo.'); return; }
+
+  if (!sites.length) await loadSites();
+  const active = sites.filter(s => s.active);
+  if (!active.length) { alert('Nenhum site activo.'); return; }
+
+  results = []; grouped = [];
+  totalTasks = active.length * terms.length;
+  doneTasks  = 0;
+
+  // Mostrar barra de progresso
+  const pw = document.getElementById('prog-wrap');
+  const pf = document.getElementById('prog-fill');
+  const pi = document.getElementById('prog-items');
+  const pp = document.getElementById('prog-pct');
+  pw.style.display = 'block';
+  pf.style.width   = '0%';
+  pp.textContent   = '0%';
+  pi.innerHTML = active.map(s =>
+    `<div class="prog-item" id="pi-${s.id}"><div class="dot gray" id="pd-${s.id}"></div>${s.name}</div>`).join('');
+
+  try {
+    // POST para iniciar a busca, receber SSE
+    const response = await fetch(`${API}/search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ queries: terms })
+    });
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop(); // linha incompleta fica no buffer
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        try {
+          const evt = JSON.parse(line.slice(6));
+          handleSSE(evt, active, pf, pp, pi);
+        } catch (_) {}
+      }
+    }
+  } catch (err) {
+    alert('Erro de ligação ao servidor: ' + err.message);
+    pw.style.display = 'none';
+  }
+}
+
+function handleSSE(evt, active, pf, pp, pi) {
+  if (evt.type === 'progress') {
+    doneTasks++;
+    const pct = Math.round(doneTasks / totalTasks * 100);
+    pf.style.width = pct + '%';
+    pp.textContent = pct + '%';
+    // atualizar dot do site
+    const site = active.find(s => s.name === evt.site);
+    if (site) {
+      const dot = document.getElementById('pd-' + site.id);
+      if (dot) dot.className = 'dot ' + (evt.status === 'ok' ? 'green' : 'red');
+    }
+  }
+
+  if (evt.type === 'cache_hit') {
+    pp.textContent = '(cache)';
+  }
+
+  if (evt.type === 'done') {
+    results = evt.results || [];
+    grouped = evt.grouped || [];
+    const stats = evt.stats || {};
+
+    document.getElementById('prog-wrap').style.display = 'none';
+
+    // badges nas tabs
+    const rb = document.getElementById('rb'); rb.style.display = 'inline'; rb.textContent = results.length;
+    const db = document.getElementById('db'); db.style.display = 'inline'; db.textContent = grouped.length;
+
+    // stats
+    document.getElementById('s-tot').textContent   = stats.total || results.length;
+    document.getElementById('s-sites').textContent = stats.sites || '—';
+    document.getElementById('s-dup').textContent   = stats.duplicated || grouped.length;
+
+    // site filter
+    const fs = document.getElementById('f-site');
+    fs.innerHTML = '<option value="">Todos os sites</option>' +
+      [...new Set(results.map(r => r.site))].map(s => `<option>${s}</option>`).join('');
+
+    // adicionar ao histórico local
+    hist.unshift({ terms: [...terms], ts: new Date().toLocaleString('pt-PT'), count: results.length, dups: grouped.length });
+
+    go('results');
+  }
+
+  if (evt.type === 'error') {
+    document.getElementById('prog-wrap').style.display = 'none';
+    alert('Erro na busca: ' + evt.error);
+  }
+}
+
+// ── Resultados flat ───────────────────────────────────────────────────────────
+function srt(col) {
+  flatSort = flatSort.col === col
+    ? { col, dir: flatSort.dir === 'asc' ? 'desc' : 'asc' }
+    : { col, dir: 'asc' };
+  document.querySelectorAll('.sort').forEach(b => b.className = 'sort');
+  const b = [...document.querySelectorAll('.sort')].find(b => b.getAttribute('onclick') === `srt('${col}')`);
+  if (b) b.className = 'sort ' + flatSort.dir;
+  renderFlat();
+}
+
+function renderFlat() {
+  const ft     = (document.getElementById('f-text')||{}).value?.toLowerCase() || '';
+  const fs     = (document.getElementById('f-site')||{}).value || '';
+  const anoMin = parseInt((document.getElementById('f-ano-min')||{}).value) || 0;
+  const anoMax = parseInt((document.getElementById('f-ano-max')||{}).value) || 9999;
+
+  let data = results.filter(r => {
+    const m   = !ft || Object.values(r).join(' ').toLowerCase().includes(ft);
+    const s   = !fs || r.site === fs;
+    const ano = parseInt(r.year) || 0;
+    const aOk = (!anoMin && !anoMax) || ano === 0 || (ano >= anoMin && ano <= anoMax);
+    return m && s && aOk;
+  });
+  if (flatSort.col) {
+    data.sort((a, b) => {
+      let av = a[flatSort.col] || '', bv = b[flatSort.col] || '';
+      if (flatSort.col === 'year') { av = parseFloat(av)||0; bv = parseFloat(bv)||0; }
+      return flatSort.dir === 'asc' ? (av < bv ? -1 : av > bv ? 1 : 0) : (av > bv ? -1 : av < bv ? 1 : 0);
+    });
+  }
+  const body  = document.getElementById('flat-body');
+  const empty = document.getElementById('flat-empty');
+  document.getElementById('flat-cnt').textContent = data.length + ' resultado' + (data.length !== 1 ? 's' : '');
+  if (!data.length) { body.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  body.innerHTML = data.map(r => `<tr>
+    <td>${r.brand}</td>
+    <td style="font-family:monospace;font-size:0.8rem;">${r.model}</td>
+    <td style="font-family:monospace;">${r.year}</td>
+    <td style="font-size:0.75rem;">${r.site}</td>
+    <td><a class="lnk" href="${r.url}" target="_blank">ver máquina →</a></td>
+  </tr>`).join('');
+}
+
+// ── Dedup ─────────────────────────────────────────────────────────────────────
+function renderDedup() {
+  const list  = document.getElementById('dedup-list');
+  const empty = document.getElementById('dedup-empty');
+  if (!grouped.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  list.innerHTML = grouped.map((g, i) => {
+    return `<div class="group-block">
+      <div class="group-hd" onclick="tgl(${i})">
+        <div class="group-title">${g.brand} ${g.model} <span style="font-weight:normal;color:var(--muted);font-size:0.8rem;">(${g.year})</span></div>
+        <span class="tag blue">${g.occurrences.length} sites</span>
+        <span id="arr-${i}" style="font-size:0.75rem;color:var(--hint);">▼</span>
+      </div>
+      <div class="group-body" id="gb-${i}">
+        ${g.occurrences.map(o => `<div class="g-row">
+          <div class="g-site">${o.site}</div>
+          <a class="lnk" href="${o.url}" target="_blank">ver →</a>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+function tgl(i) {
+  const b = document.getElementById('gb-'+i);
+  const a = document.getElementById('arr-'+i);
+  b.classList.toggle('open');
+  a.textContent = b.classList.contains('open') ? '▲' : '▼';
+}
+
+// ── Exports ───────────────────────────────────────────────────────────────────
+function dl(content, name, type) {
+  const blob = new Blob([content], { type });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+}
+function toCSV(rows) { return rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); }
+function toXLS(rows, sheet) {
+  let xml = `<?xml version="1.0"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Worksheet ss:Name="${sheet}"><Table>`;
+  xml += rows.map(r => `<Row>${r.map(c => `<Cell><Data ss:Type="String">${String(c).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</Data></Cell>`).join('')}</Row>`).join('');
+  return xml + `</Table></Worksheet></Workbook>`;
+}
+function flatRows() {
+  const h = ['Data','Marca','Modelo','Ano','Site','Link'];
+  const d = results.map(r => [date, r.brand, r.model, r.year, r.site, r.url]);
+  return [h,...d];
+}
+function dedupRows() {
+  const h = ['Data','Marca','Modelo','Ano','Sites','Links'];
+  const d = grouped.map(g => [date, g.brand, g.model, g.year, g.occurrences.length, g.occurrences.map(o => o.url).join(' | ')]);
+  return [h,...d];
+}
+const exportCSV      = () => dl('\uFEFF'+toCSV(flatRows()),   'resultados.csv',  'text/csv;charset=utf-8');
+const exportXLS      = () => dl(toXLS(flatRows(),  'Resultados'), 'resultados.xls', 'application/vnd.ms-excel');
+const exportDedupCSV = () => dl('\uFEFF'+toCSV(dedupRows()), 'agrupados.csv',   'text/csv;charset=utf-8');
+const exportDedupXLS = () => dl(toXLS(dedupRows(),'Agrupados'), 'agrupados.xls',  'application/vnd.ms-excel');
+
+// ── Backoffice ────────────────────────────────────────────────────────────────
+async function loadSites() {
+  const r = await fetch(`${API}/sites`);
+  const d = await r.json();
+  sites = d.sites || [];
+}
+
+async function loadBO() {
+  await loadSites();
+  document.getElementById('bo-list').innerHTML = sites.map(s => `
+    <div class="card">
+      <div class="row">
+        <div class="dot ${s.active?'green':'gray'}"></div>
+        <div style="flex:1">
+          <div class="name">${s.name} <span style="font-size:0.72rem;color:var(--hint);font-family:monospace;">${s.url}</span></div>
+          <div class="tags">
+            <span class="tag">${s.category||''}</span>
+            <span class="tag">${s.region||''}</span>
+            <span class="tag">${s.currency||''}</span>
+            ${s.actorId?`<span class="tag blue">${s.actorId}</span>`:'<span class="tag amber">sem actor</span>'}
+            <span class="tag ${s.active?'green':''}"> ${s.active?'activo':'inactivo'}</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn sm" onclick="toggleSiteBO('${s.id}')" style="${s.active?'':'color:var(--green);border-color:#b8dfc8;'}">${s.active?'Desactivar':'Activar'}</button>
+          <button class="btn sm" onclick="editSite('${s.id}')">Editar</button>
+          <button class="btn danger sm" onclick="delSite('${s.id}')">Remover</button>
+        </div>
+      </div>
+    </div>`).join('') || '<p style="font-size:0.82rem;color:var(--hint);">Nenhum site cadastrado.</p>';
+}
+
+function openModal() {
+  editId = null;
+  document.getElementById('modal-ttl').textContent = 'Cadastrar site';
+  ['f-name','f-url','f-surl','f-reg','f-actor','f-extra','s-cont','s-brand','s-model','s-year','s-price','s-cond','s-loc','s-link'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('f-timeout').value = 90;
+  document.getElementById('modal-test-res').style.display = 'none';
+  document.getElementById('modal').classList.add('open');
+}
+function editSite(id) {
+  const s = sites.find(x => x.id === id); if (!s) return;
+  editId = id;
+  document.getElementById('modal-ttl').textContent = 'Editar site';
+  document.getElementById('f-name').value    = s.name || '';
+  document.getElementById('f-url').value     = s.url  || '';
+  document.getElementById('f-surl').value    = s.searchUrl || '';
+  document.getElementById('f-reg').value     = s.region || '';
+  document.getElementById('f-cat').value     = s.category || 'Máquinas em Geral';
+  document.getElementById('f-cur').value     = s.currency || 'EUR (€)';
+  document.getElementById('f-actor').value   = s.actorId || '';
+  document.getElementById('f-timeout').value = s.timeoutSecs || 90;
+  document.getElementById('f-extra').value   = s.actorInput ? JSON.stringify(s.actorInput, null, 2) : '';
+  const sel = s.selectors || {};
+  document.getElementById('s-cont').value  = sel.container || '';
+  document.getElementById('s-brand').value = sel.brand     || '';
+  document.getElementById('s-model').value = sel.model     || '';
+  document.getElementById('s-year').value  = sel.year      || '';
+  document.getElementById('s-price').value = sel.price     || '';
+  document.getElementById('s-cond').value  = sel.condition || '';
+  document.getElementById('s-loc').value   = sel.location  || '';
+  document.getElementById('s-link').value  = sel.link      || '';
+  document.getElementById('modal-test-res').style.display = 'none';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+async function testActor() {
+  const actorId = document.getElementById('f-actor').value.trim();
+  const res = document.getElementById('modal-test-res');
+  res.style.display = 'block'; res.className = 'test-res'; res.textContent = 'A verificar actor...';
+  if (!actorId) { res.className = 'test-res err'; res.textContent = 'Preenche o Actor ID primeiro.'; return; }
+  try {
+    const r = await fetch(`${API}/apify/actor/${encodeURIComponent(actorId)}`);
+    const d = await r.json();
+    if (d.ok) { res.className = 'test-res ok'; res.textContent = `Actor "${actorId}" encontrado e acessível.`; }
+    else       { res.className = 'test-res err'; res.textContent = 'Actor não encontrado: ' + d.error; }
+  } catch { res.className = 'test-res err'; res.textContent = 'Erro de ligação ao servidor.'; }
+}
+
+async function saveSite() {
+  const name = document.getElementById('f-name').value.trim();
+  const url  = document.getElementById('f-url').value.trim();
+  if (!name || !url) { alert('Nome e URL são obrigatórios.'); return; }
+  let actorInput = {};
+  try { actorInput = JSON.parse(document.getElementById('f-extra').value || '{}'); } catch { alert('JSON extra inválido.'); return; }
+  const body = {
+    name, url,
+    searchUrl:   document.getElementById('f-surl').value.trim(),
+    category:    document.getElementById('f-cat').value,
+    region:      document.getElementById('f-reg').value.trim(),
+    currency:    document.getElementById('f-cur').value,
+    actorId:     document.getElementById('f-actor').value.trim(),
+    timeoutSecs: parseInt(document.getElementById('f-timeout').value) || 90,
+    actorInput,
+    selectors: {
+      container: document.getElementById('s-cont').value.trim(),
+      brand:     document.getElementById('s-brand').value.trim(),
+      model:     document.getElementById('s-model').value.trim(),
+      year:      document.getElementById('s-year').value.trim(),
+      price:     document.getElementById('s-price').value.trim(),
+      condition: document.getElementById('s-cond').value.trim(),
+      location:  document.getElementById('s-loc').value.trim(),
+      link:      document.getElementById('s-link').value.trim()
+    }
+  };
+  const url2   = editId ? `${API}/sites/${editId}` : `${API}/sites`;
+  const method = editId ? 'PUT' : 'POST';
+  await fetch(url2, { method, headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  closeModal(); loadBO();
+}
+
+async function delSite(id) {
+  if (!confirm('Remover este site?')) return;
+  await fetch(`${API}/sites/${id}`, { method: 'DELETE' });
+  loadBO();
+}
+
+async function toggleSiteBO(id) {
+  const s = sites.find(x => x.id === id);
+  if (!s) return;
+  await fetch(`${API}/sites/${id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ active: !s.active }) });
+  await loadSites();
+  loadBO();
+}
+
+async function testToken() {
+  const res = document.getElementById('token-res');
+  res.style.display = 'block'; res.className = 'test-res'; res.textContent = 'A testar...';
+  try {
+    const r = await fetch(`${API}/apify/validate`);
+    const d = await r.json();
+    if (d.ok) { res.className = 'test-res ok'; res.textContent = `Token válido. Utilizador: ${d.username} | Plano: ${d.plan||'N/D'}`; }
+    else       { res.className = 'test-res err'; res.textContent = 'Token inválido: ' + d.error; }
+  } catch { res.className = 'test-res err'; res.textContent = 'Servidor offline.'; }
+}
+
+function saveGlobal() { alert('Configuração guardada. (Em produção: enviar para o servidor via PUT /api/config)'); }
+
+// ── Histórico ─────────────────────────────────────────────────────────────────
+async function loadHist() {
+  try {
+    const r = await fetch(`${API}/search/history`);
+    const d = await r.json();
+    hist = d.history || [];
+  } catch { /* usar hist local */ }
+  const list = document.getElementById('hist-list');
+  if (!hist.length) { list.innerHTML = '<p style="font-size:0.82rem;color:var(--hint);">Nenhuma busca realizada.</p>'; return; }
+  list.innerHTML = hist.map(h => `
+    <div class="card">
+      <div class="hist-item">
+        <div style="flex:1">
+          <div class="hist-terms">${(h.terms||h.queries||[]).join(', ')}</div>
+          <div class="hist-meta">${h.ts||h.createdAt||''} · ${h.count||h.totalResults||0} resultados · ${h.dups||h.duplicated||0} agrupados</div>
+        </div>
+        <button class="btn sm" onclick='rerun(${JSON.stringify(h.terms||h.queries||[])})'>Repetir →</button>
+      </div>
+    </div>`).join('');
+}
+function rerun(ts) { terms = ts; renderPills(); go('search'); setTimeout(runSearch, 100); }
+async function clearHist() {
+  if (!confirm('Limpar histórico?')) return;
+  try { await fetch(`${API}/search/history`, { method: 'DELETE' }); } catch (_) {}
+  hist = [];
+  const list = document.getElementById('hist-list');
+  list.innerHTML = '<p style="font-size:0.82rem;color:var(--hint);">Nenhuma busca realizada.</p>';
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+checkHealth();
+loadSites().then(renderSearch);
+document.getElementById('flat-empty').style.display = 'block';
+document.getElementById('dedup-empty').style.display = 'block';
+</script>
+</body>
+</html>

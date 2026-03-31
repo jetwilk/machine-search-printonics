@@ -1,0 +1,345 @@
+/**
+ * apify.service.js — Integração real com a API do Apify
+ *
+ * Fluxo por site:
+ *  1. Monta o input para o Actor (URL de busca + page function com selectores)
+ *  2. Inicia o Actor via apify-client
+ *  3. Faz polling até o run terminar (SUCCEEDED / FAILED / TIMED-OUT)
+ *  4. Lê os items do dataset gerado
+ *  5. Normaliza e devolve os resultados
+ */
+
+require('dotenv').config();
+const { ApifyClient } = require('apify-client');
+
+// ── Cliente global ────────────────────────────────────────────────────────────
+const client = new ApifyClient({ token: process.env.APIFY_TOKEN });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PAGE FUNCTION injectada no Actor (roda no browser/cheerio do Apify)
+// Usa os selectores configurados no backoffice para extrair os campos.
+// ─────────────────────────────────────────────────────────────────────────────
+// SUBSTITUIR a função buildPageFunction() existente por esta:
+function buildPageFunction(selectors, actorId = '') {
+  const s = JSON.stringify(selectors);
+
+  // web-scraper e playwright-scraper usam page (Puppeteer API)
+  // web-scraper usa context.jQuery — NÃO usa context.page
+if (actorId.includes('web-scraper')) {
+  return `
+async function pageFunction(context) {
+  const { jQuery: $, request, log } = context;
+  const sel = ${s};
+  const results = [];
+
+  const containers = sel.container ? $(sel.container) : $('body');
+
+  containers.each((i, el) => {
+    const $el = $(el);
+
+    const txt = (selector) => {
+      if (!selector) return '';
+      const found = selector.includes('[href')
+        ? $el.find(selector).attr('href')
+        : $el.find(selector).first().text().trim();
+      return found || '';
+    };
+
+    let link = '';
+    if (sel.link) {
+      const $a = $el.find(sel.link).first();
+      link = $a.attr('href') || '';
+      if (link && link.startsWith('/')) {
+        link = new URL(link, request.url).href;
+      }
+    }
+
+    const rawPrice = txt(sel.price);
+    const cleanPrice = rawPrice.replace(/[^0-9.,€$£R\\s]/g, '').trim();
+
+    const item = {
+      brand:     txt(sel.brand)     || 'N/D',
+      model:     txt(sel.model)     || 'N/D',
+      year:      txt(sel.year)      || 'N/D',
+      price:     cleanPrice         || '—',
+      condition: txt(sel.condition) || 'N/D',
+      location:  txt(sel.location)  || 'N/D',
+      url:       link               || request.url,
+      scrapedAt: new Date().toISOString()
+    };
+
+    if (item.brand !== 'N/D' || item.model !== 'N/D') {
+      results.push(item);
+    }
+  });
+
+  log.info('Extraídos ' + results.length + ' itens de ' + request.url);
+  return results;
+}
+`;
+}
+
+// playwright-scraper usa context.page (Playwright API)
+if (actorId.includes('playwright')) {
+  return `
+async function pageFunction(context) {
+  const { page, request, log } = context;
+  const sel = ${s};
+
+  await page.waitForSelector(sel.container || 'body', { timeout: 10000 }).catch(() => {});
+
+  const items = await page.evaluate((sel) => {
+    const containers = sel.container
+      ? [...document.querySelectorAll(sel.container)]
+      : [document.body];
+
+    return containers.map(el => {
+      const txt = (s) => {
+        if (!s) return '';
+        const found = el.querySelector(s);
+        return found ? (found.getAttribute('href') || found.innerText.trim()) : '';
+      };
+      let link = '';
+      if (sel.link) {
+        const a = el.querySelector(sel.link);
+        if (a) link = a.href || a.getAttribute('href') || '';
+      }
+      const rawPrice = txt(sel.price);
+      const cleanPrice = rawPrice.replace(/[^0-9.,€$£R\\s]/g, '').trim();
+      return {
+        brand: txt(sel.brand) || 'N/D', model: txt(sel.model) || 'N/D',
+        year: txt(sel.year) || 'N/D', price: cleanPrice || '—',
+        condition: txt(sel.condition) || 'N/D', location: txt(sel.location) || 'N/D',
+        url: link || window.location.href, scrapedAt: new Date().toISOString()
+      };
+    }).filter(item => item.brand !== 'N/D' || item.model !== 'N/D');
+  }, sel);
+
+  log.info('Extraídos ' + items.length + ' itens de ' + request.url);
+  return items;
+}
+`;
+}
+
+  // cheerio-scraper — lógica original mantém-se
+  return `
+async function pageFunction(context) {
+  const { $, request, log } = context;
+  const sel = ${s};
+  const results = [];
+
+  const containers = sel.container ? $(sel.container) : $('body');
+
+  containers.each((i, el) => {
+    const $el = $(el);
+
+    const txt = (selector) => {
+      if (!selector) return '';
+      const found = selector.startsWith('a') && selector.includes('[href')
+        ? $el.find(selector).attr('href')
+        : $el.find(selector).first().text().trim();
+      return found || '';
+    };
+
+    let link = '';
+    if (sel.link) {
+      const $a = $el.find(sel.link).first();
+      link = $a.attr('href') || '';
+      if (link && !link.startsWith('http')) {
+          link = new URL(link, request.url).href;
+         }
+    }
+
+    const rawPrice = txt(sel.price);
+    const cleanPrice = rawPrice.replace(/[^0-9.,€$£R\\s]/g, '').trim();
+
+    const item = {
+      brand:     txt(sel.brand)     || 'N/D',
+      model:     txt(sel.model)     || 'N/D',
+      year:      txt(sel.year)      || 'N/D',
+      price:     cleanPrice         || '—',
+      condition: txt(sel.condition) || 'N/D',
+      location:  txt(sel.location)  || 'N/D',
+      url:       link               || request.url,
+      scrapedAt: new Date().toISOString()
+    };
+
+    if (item.brand !== 'N/D' || item.model !== 'N/D') {
+      results.push(item);
+    }
+  });
+
+  log.info('Extraídos ' + results.length + ' itens de ' + request.url);
+  return results;
+}
+`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Monta o input completo para o Actor do Apify
+// ─────────────────────────────────────────────────────────────────────────────
+function buildActorInput(site, query) {
+  const searchUrl = site.searchUrl.replace('{query}', encodeURIComponent(query));
+
+  const baseInput = {
+    startUrls: [{ url: searchUrl }],
+    pageFunction: buildPageFunction(site.selectors, site.actorId), // ✅ passar actorId
+    maxRequestsPerCrawl: 100,
+    maxConcurrency: 5,
+    ...(site.actorInput || {})
+  };
+
+  if (site.actorId.includes('web-scraper')) {
+    baseInput.waitUntil = site.actorInput?.waitUntil || 'networkidle2';
+  }
+
+  return baseInput;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Faz polling do run até terminar ou timeout
+// ─────────────────────────────────────────────────────────────────────────────
+async function waitForRun(runId, timeoutSecs = 120) {
+  const POLL_INTERVAL_MS = 3000;
+  const deadline = Date.now() + timeoutSecs * 1000;
+
+  while (Date.now() < deadline) {
+    const run = await client.run(runId).get();
+
+    if (run.status === 'SUCCEEDED') return run;
+    if (['FAILED', 'ABORTED', 'TIMED-OUT'].includes(run.status)) {
+      throw new Error(`Actor terminou com status: ${run.status}`);
+    }
+
+    // RUNNING ou READY — aguardar próximo poll
+    await new Promise(r => setTimeout(r, POLL_INTERVAL_MS));
+  }
+
+  // Atingiu deadline — abortar o run para não gastar créditos
+  await client.run(runId).abort().catch(() => {});
+  throw new Error(`Timeout de ${timeoutSecs}s atingido para o site`);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scrape de um único site para um único termo de busca
+// ─────────────────────────────────────────────────────────────────────────────
+async function scrapeSite(site, query) {
+  const actorId  = site.actorId  || process.env.DEFAULT_ACTOR || 'apify/cheerio-scraper';
+  const timeout  = site.timeoutSecs || parseInt(process.env.DEFAULT_TIMEOUT_SECS) || 120;
+  const input    = buildActorInput(site, query);
+
+  console.log(`[Apify] Iniciando actor "${actorId}" para site "${site.name}" | query: "${query}"`);
+
+  // Iniciar o run
+    const run = await client.actor(actorId).call(input, {
+    timeout: timeout,
+    memory:  actorId.includes('web-scraper') || actorId.includes('playwright')
+               ? 1024   // ✅ Puppeteer precisa de pelo menos 1 GB
+               : 512    // cheerio-scraper pode ficar com 512 MB
+  });
+
+  // Aguardar conclusão com polling
+  const finishedRun = await waitForRun(run.id, timeout);
+
+  // Ler os items do dataset
+  const { items } = await client.dataset(finishedRun.defaultDatasetId).listItems({
+    limit: 500
+  });
+
+  // Normalizar — adicionar metadados do site
+  const results = (Array.isArray(items) ? items : []).flatMap(item => {
+    // O Actor pode devolver array ou objecto único por página
+    const rows = Array.isArray(item) ? item : [item];
+    return rows.map(row => ({
+      brand:     row.brand     || 'N/D',
+      model:     row.model     || 'N/D',
+      year:      row.year      || 'N/D',
+      price:     row.price     || '—',
+      priceNum:  parsePrice(row.price),
+      condition: row.condition || 'N/D',
+      location:  row.location  || 'N/D',
+      url:       row.url       || '',
+      site:      site.name,
+      currency:  site.currency,
+      scrapedAt: row.scrapedAt || new Date().toISOString()
+    }));
+  });
+
+  console.log(`[Apify] Site "${site.name}" → ${results.length} resultados`);
+  return results;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scrape de MÚLTIPLOS sites com concorrência controlada
+// ─────────────────────────────────────────────────────────────────────────────
+async function scrapeAll(sites, queries, concurrency = 3, onProgress = null) {
+  const tasks = [];
+
+  // Criar uma tarefa por (site × query)
+  for (const query of queries) {
+    for (const site of sites) {
+      tasks.push({ site, query });
+    }
+  }
+
+  const allResults = [];
+  const errors     = [];
+
+  // Processar em lotes de `concurrency`
+  for (let i = 0; i < tasks.length; i += concurrency) {
+    const batch = tasks.slice(i, i + concurrency);
+
+    const settled = await Promise.allSettled(
+      batch.map(({ site, query }) => scrapeSite(site, query))
+    );
+
+    settled.forEach((result, idx) => {
+      const { site, query } = batch[idx];
+
+      if (result.status === 'fulfilled') {
+        allResults.push(...result.value);
+        if (onProgress) onProgress({ site: site.name, query, status: 'ok', count: result.value.length });
+      } else {
+        const errMsg = result.reason?.message || 'Erro desconhecido';
+        console.error(`[Apify] Erro em "${site.name}" (${query}): ${errMsg}`);
+        errors.push({ site: site.name, query, error: errMsg });
+        if (onProgress) onProgress({ site: site.name, query, status: 'error', error: errMsg });
+      }
+    });
+  }
+
+  return { results: allResults, errors };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Validar token e listar actors disponíveis (usado no backoffice)
+// ─────────────────────────────────────────────────────────────────────────────
+async function validateToken() {
+  const user = await client.user('me').get();
+  return { valid: true, username: user.username, plan: user.plan?.id };
+}
+
+async function getActorInfo(actorId) {
+  const actor = await client.actor(actorId).get();
+  if (!actor) throw new Error(`Actor "${actorId}" não encontrado`);
+  return {
+    id:          actor.id,
+    name:        actor.name,
+    description: actor.description,
+    version:     actor.defaultRunOptions?.build
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Helper: extrair valor numérico de uma string de preço
+// ex: "€ 48.000" → 48000  |  "$ 1,200.50" → 1200.50
+// ─────────────────────────────────────────────────────────────────────────────
+function parsePrice(str) {
+  if (!str || str === '—') return 0;
+  // Remover símbolos de moeda e espaços, normalizar separadores
+  const cleaned = str.replace(/[€$£R\s]/g, '').replace(/\.(?=\d{3})/g, '').replace(',', '.');
+  const num = parseFloat(cleaned);
+  return isNaN(num) ? 0 : num;
+}
+
+module.exports = { scrapeAll, scrapeSite, validateToken, getActorInfo, parsePrice };

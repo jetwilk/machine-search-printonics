@@ -1,0 +1,2397 @@
+{
+  "sites": [
+    {
+      "id": "8e730b57-0e75-4450-abf9-8ff20c2a1901",
+      "name": "Pressxchange",
+      "url": "https://www.pressxchange.com/",
+      "searchUrl": "https://www.pressxchange.com/en/search/searchterm/{query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.card.machine",
+        "brand": ".card-header",
+        "model": ".card-header h2 a",
+        "year": ".float-right",
+        "price": ".card-footer .btn-primary",
+        "condition": "",
+        "location": "",
+        "link": ".card-footer a.btn-secondary"
+      },
+      "actorInput": {
+        "waitUntil": "domcontentloaded"
+      },
+      "active": false,
+      "createdAt": "2026-03-18T23:53:36.532Z",
+      "updatedAt": "2026-03-25T19:45:33.369Z"
+    },
+    {
+      "id": "97cbd478-ed1c-41e8-b68b-199a0b4f767a",
+      "name": "Werktuigen",
+      "url": "https://www.werktuigen.com/",
+      "searchUrl": "https://www.werktuigen.com/main/search/index?search-word={query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "section.grid-card",
+        "brand": "[data-grid=\"title\"] .me-1",
+        "model": "[data-grid=\"title\"] h2 span:last-child",
+        "year": ".description-preview b",
+        "price": "[data-grid=\"price\"] .h4 span",
+        "condition": ".description-preview b:first-child",
+        "location": ".country-name",
+        "link": "a[data-grid=\"title\"]"
+      },
+      "actorInput": {
+        "maxRequestsPerCrawl": 50,
+        "waitUntil": "domcontentloaded"
+      },
+      "active": false,
+      "createdAt": "2026-03-19T11:55:22.766Z",
+      "updatedAt": "2026-03-25T19:45:33.759Z"
+    },
+    {
+      "id": "b9209f24-0be2-403a-bfbd-1195c0d3618b",
+      "name": "Exapro",
+      "url": "https://www.exapro.com",
+      "searchUrl": "https://www.exapro.com/product-search/?text={query}",
+      "category": "Impressão Offset",
+      "region": "Global",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.ps-product",
+        "brand": ".ps-product__title__list",
+        "model": ".ps-product__title__list",
+        "year": ".badge-attribute:not(:first-child)",
+        "price": ".price strong",
+        "condition": "",
+        "location": ".badge-attribute span",
+        "link": ".ps-product__title__list"
+      },
+      "actorInput": {
+        "waitUntil": [
+          "networkidle2"
+        ],
+        "pageFunctionTimeoutSecs": 60,
+        "maxRequestRetries": 3
+      },
+      "active": false,
+      "createdAt": "2026-03-19T12:54:30.496Z",
+      "updatedAt": "2026-03-25T19:45:34.157Z"
+    },
+    {
+      "id": "d2947695-0f65-4a3f-b51f-d57cc2662616",
+      "name": "PressCity",
+      "url": "https://www.presscity.com",
+      "searchUrl": "https://presscity.com/en/?q={query}&page=search",
+      "category": "Impressão Offset",
+      "region": "Global",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": "div.card.search-result-card",
+        "brand": ".card-body h2 a",
+        "model": ".card-body h2 a",
+        "year": ".card-body h2 a",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ".card-body h2 a"
+      },
+      "actorInput": {
+        "waitUntil": [
+          "networkidle2"
+        ],
+        "maxRequestsPerCrawl": 50
+      },
+      "active": false,
+      "createdAt": "2026-03-19T16:18:45.972Z",
+      "updatedAt": "2026-03-25T19:45:34.570Z"
+    },
+    {
+      "id": "c5ba98b6-05de-4473-9056-383e6bcc3311",
+      "name": "Machineseeker",
+      "url": "https://www.machineseeker.pt/",
+      "searchUrl": "https://www.machineseeker.com/main/search/index?search-word={query}",
+      "category": "Impressão Offset",
+      "region": "Global",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "section.grid-card.grid-card-border",
+        "brand": ".grid-body h2 span.me-1",
+        "model": ".grid-body h2 span:last-child",
+        "year": ".description-preview b:nth-of-type(2)",
+        "price": ".price .h4",
+        "condition": ".description-preview b:first-of-type",
+        "location": ".trader-location .country-name",
+        "link": ".grid-body a[data-grid=\"title\"]"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T20:52:17.812Z",
+      "updatedAt": "2026-03-25T19:45:34.995Z"
+    },
+    {
+      "id": "bdb15e56-d5a7-4c7b-8075-ee4c47380a58",
+      "name": "IndiaMart",
+      "url": "https://export.indiamart.com/",
+      "searchUrl": "https://export.indiamart.com/search.php?ss={query}",
+      "category": "Impressão Offset",
+      "region": "India",
+      "currency": "EUR (€)",
+      "actorId": "apify/web-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": ".bg-white.rounded-lg.overflow-hidden.border.border-gray-200",
+        "brand": "a.font-semibold.line-clamp-3",
+        "model": "",
+        "year": "",
+        "price": ".text-gray-900 span",
+        "condition": "",
+        "location": "",
+        "link": "a.line-clamp-3"
+      },
+      "actorInput": {
+        "waitUntil": [
+          "networkidle2"
+        ],
+        "pageLoadTimeoutSecs": 30,
+        "pageFunctionTimeoutSecs": 30
+      },
+      "active": false,
+      "createdAt": "2026-03-19T21:08:57.434Z",
+      "updatedAt": "2026-03-25T17:44:44.080Z"
+    },
+    {
+      "id": "f301f8ac-c045-4160-995a-907fb51b89bd",
+      "name": "AllForPrintMarket",
+      "url": "https://allforprintmarket.com",
+      "searchUrl": "https://allforprintmarket.com/jsf/jet-engine:produse/meta/_stock_status:instock/?s={query}&jet_ajax_search_settings={%22search_source%22:%22product%22,%22results_order_by%22:%22date%22,%22results_order%22:%22desc%22}&post_type=product",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": ".jet-listing-grid__item",
+        "brand": ".product-attributes:first-of-type li a",
+        "model": "h4.elementor-heading-title a",
+        "year": ".product-attributes:last-of-type li a",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ".jet-listing-dynamic-image__link"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T21:37:11.909Z",
+      "updatedAt": "2026-03-25T19:45:36.741Z"
+    },
+    {
+      "id": "858c7440-c3c4-4dd6-8ff3-6f3e06d89ebd",
+      "name": "GoK-Karakus",
+      "url": "https://www.gok-karakus.de",
+      "searchUrl": "https://www.gok-karakus.de/machinerylist.php?search={query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.post",
+        "brand": "table.specs tr:nth-child(3) td:last-child",
+        "model": "table.specs tr:nth-child(4) td:last-child",
+        "year": "table.specs tr:nth-child(2) td:last-child",
+        "price": "table.specs tr:nth-child(8) td:last-child",
+        "condition": "",
+        "location": "",
+        "link": "h2.machineTitle a"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T22:10:07.495Z",
+      "updatedAt": "2026-03-25T19:45:37.295Z"
+    },
+    {
+      "id": "640008f2-abba-461f-a584-02e91b1d6729",
+      "name": "Reiser-gm",
+      "url": "https://www.reiser-gm.de/",
+      "searchUrl": "https://www.reiser-gm.de/en/listings?q={query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 90,
+      "selectors": {
+        "container": "div.listing__wrapper",
+        "brand": "div.listing__title a span",
+        "model": "div.listing__title a span",
+        "year": "div.listing__title a span",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": "div.listing__title a"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T22:45:56.431Z",
+      "updatedAt": "2026-03-25T19:45:37.697Z"
+    },
+    {
+      "id": "9579aa86-690f-484a-8752-803f826c6524",
+      "name": "OffsetPoint",
+      "url": "https://www.offsetpoint.com/",
+      "searchUrl": "https://www.offsetpoint.com/en/machines/search?q={query}&CategoryId=1&PrintingUnitsFrom=&PrintingUnitsTo=&ImpressionMiosTo=&PrintingFormatId=&ConstructionYearFrom=&ConstructionYearTo=",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": ".op-machine",
+        "brand": ".op-machine-col1 .op-machine-info:nth-child(2)",
+        "model": ".op-machine-col1 .op-machine-info:nth-child(3)",
+        "year": ".op-machine-col1 .op-machine-info:nth-child(5)",
+        "price": ".op-machine-col2 .op-machine-info:last-child",
+        "condition": "",
+        "location": ".op-machine-col2 .op-machine-info:nth-last-child(2)",
+        "link": ".op-machine-img"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-19T23:33:10.247Z",
+      "updatedAt": "2026-03-25T22:22:30.620Z"
+    },
+    {
+      "id": "e5e36798-b425-4422-9972-f45a64510272",
+      "name": "Pressdepo",
+      "url": "https://www.pressdepo.com",
+      "searchUrl": "https://www.pressdepo.com/search/en-category-/{query}",
+      "category": "Impressão Offset",
+      "region": "Europa",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": ".list_m",
+        "brand": ".list_mname",
+        "model": "",
+        "year": ".list_age",
+        "price": "",
+        "condition": "",
+        "location": "",
+        "link": ".list_mname a"
+      },
+      "actorInput": {},
+      "active": true,
+      "createdAt": "2026-03-20T13:26:57.138Z",
+      "updatedAt": "2026-03-25T23:07:45.315Z"
+    },
+    {
+      "id": "08dc418f-9148-49a6-b99b-13f73863af5f",
+      "name": "Wotol",
+      "url": "https://www.wotol.com/",
+      "searchUrl": "https://www.wotol.com/product/search?q={query}&perPage=100&page=1",
+      "category": "Impressão Offset",
+      "region": "USA",
+      "currency": "EUR (€)",
+      "actorId": "apify/cheerio-scraper",
+      "timeoutSecs": 120,
+      "selectors": {
+        "container": ".horizontal-card",
+        "brand": ".horizontal-card__title [itemprop=\"name\"]",
+        "model": ".horizontal-card__title [itemprop=\"name\"]",
+        "year": ".additional-info small:first-child span",
+        "price": ".horizontal-card__price span",
+        "condition": "",
+        "location": ".additional-info small:last-child span",
+        "link": ".horizontal-card__title"
+      },
+      "actorInput": {},
+      "active": false,
+      "createdAt": "2026-03-25T19:45:30.061Z",
+      "updatedAt": "2026-03-25T20:56:47.193Z"
+    }
+  ],
+  "searches": [
+    {
+      "id": "65a3e6ec-ac1b-444b-a9fb-0f80e93c40f7",
+      "queries": [
+        "SM 52-5PH LX"
+      ],
+      "siteIds": [
+        "e5e36798-b425-4422-9972-f45a64510272"
+      ],
+      "siteNames": [
+        "Pressdepo"
+      ],
+      "totalResults": 1,
+      "duplicated": 0,
+      "errors": 0,
+      "createdAt": "2026-03-25T23:08:21.528Z"
+    },
+    {
+      "id": "b7a4fcc6-dd85-4b41-8f2a-f1ab6a4dc5ac",
+      "queries": [
+        "SM 52-2 P"
+      ],
+      "siteIds": [
+        "e5e36798-b425-4422-9972-f45a64510272"
+      ],
+      "siteNames": [
+        "Pressdepo"
+      ],
+      "totalResults": 1,
+      "duplicated": 0,
+      "errors": 0,
+      "createdAt": "2026-03-25T22:55:09.595Z"
+    },
+    {
+      "id": "2aecd195-b583-49c0-8906-ba928162ab60",
+      "queries": [
+        "polar"
+      ],
+      "siteIds": [
+        "e5e36798-b425-4422-9972-f45a64510272"
+      ],
+      "siteNames": [
+        "Pressdepo"
+      ],
+      "totalResults": 1,
+      "duplicated": 0,
+      "errors": 0,
+      "createdAt": "2026-03-25T22:51:06.455Z"
+    },
+    {
+      "id": "5f223cd5-c84d-4309-8709-02f6affda538",
+      "queries": [
+        "sm 52"
+      ],
+      "siteIds": [
+        "e5e36798-b425-4422-9972-f45a64510272"
+      ],
+      "siteNames": [
+        "Pressdepo"
+      ],
+      "totalResults": 1,
+      "duplicated": 0,
+      "errors": 0,
+      "createdAt": "2026-03-25T22:50:02.077Z"
+    },
+    {
+      "id": "d98767bd-9de3-48f2-9c97-07cc2fe9c9e6",
+      "queries": [
+        "sm52"
+      ],
+      "siteIds": [
+        "e5e36798-b425-4422-9972-f45a64510272"
+      ],
+      "siteNames": [
+        "Pressdepo"
+      ],
+      "totalResults": 1,
+      "duplicated": 0,
+      "errors": 0,
+      "createdAt": "2026-03-25T22:23:16.492Z"
+    },
+    {
+      "id": "5417c05c-5b6c-4c89-8dd7-8cdd253d29a2",
+      "queries": [
+        "Polar"
+      ],
+      "siteIds": [
+        "9579aa86-690f-484a-8752-803f826c6524"
+      ],
+      "siteNames": [
+        "OffsetPoint"
+      ],
+      "totalResults": 61,
+      "duplicated": 2,
+      "errors": 0,
+      "createdAt": "2026-03-25T21:22:59.296Z"
+    },
+    {
+      "id": "8f7b531b-4527-46b7-9c14-70d6e462531f",
+      "queries": [
+        "524"
+      ],
+      "siteIds": [
+        "9579aa86-690f-484a-8752-803f826c6524"
+      ],
+      "siteNames": [
+        "OffsetPoint"
+      ],
+      "totalResults": 1,
+      "duplicated": 0,
+      "errors": 0,
+      "createdAt": "2026-03-25T20:57:00.802Z"
+    }
+  ],
+  "cache": [
+    {
+      "key": "{\"queries\":[\"sm 102\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "Heidelberg SM 102/5+L 5 72x102",
+          "model": "Heidelberg SM 102/5+L 5 72x102",
+          "year": "2011",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-l-5-72x102/2785771",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.484Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 2 P 72  x 102 cm",
+          "model": "Heidelberg SM 102 2 P 72  x 102 cm",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2-p-72-x-102-cm/2784857",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.486Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 720 x 1020 mm",
+          "model": "Heidelberg SM 102-2P 720 x 1020 mm",
+          "year": "2001",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA North (USA-Canada-Mexico)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-720-x-1020-mm/2784788",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.487Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 4 P 72  x 102 cm",
+          "model": "Heidelberg SM 102 4 P 72  x 102 cm",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-p-72-x-102-cm/2784390",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.488Z"
+        },
+        {
+          "brand": "Heidelberg Speedmaster SM 102-2-P 102 x 74 cm",
+          "model": "Heidelberg Speedmaster SM 102-2-P 102 x 74 cm",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-speedmaster-sm-102-2-p-102-x-74-cm/2784338",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.489Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 FP 72  x 102 cm",
+          "model": "Heidelberg SM 102 FP 72  x 102 cm",
+          "year": "1991",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-fp-72-x-102-cm/2784216",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.490Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 - 2 P 2 720x1020 mm",
+          "model": "Heidelberg SM 102 - 2 P 2 720x1020 mm",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2-p-2-720x1020-mm/2783806",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.491Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P (2000+) 720x1020 mm",
+          "model": "Heidelberg SM 102-2P (2000+) 720x1020 mm",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-2000-720x1020-mm/2783780",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.492Z"
+        },
+        {
+          "brand": "Heidelberg SM 102ZP 28\"x40\"",
+          "model": "Heidelberg SM 102ZP 28\"x40\"",
+          "year": "1985",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102zp-28-x40/2783453",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.494Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 2 72x102",
+          "model": "Heidelberg SM 102-2P 2 72x102",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-2-72x102/2782730",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.495Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 28\"X40\"",
+          "model": "Heidelberg SM 102-2P 28\"X40\"",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-28-x40/2781702",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.496Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5P 1020 x 720 mm",
+          "model": "Heidelberg SM 102-5P 1020 x 720 mm",
+          "year": "1997",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5p-1020-x-720-mm/2781532",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.497Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5 FP 5",
+          "model": "Heidelberg SM 102-5 FP 5",
+          "year": "1984",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-fp-5/2781405",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.498Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5 PP 5 102 x 72 cm",
+          "model": "Heidelberg SM 102-5 PP 5 102 x 72 cm",
+          "year": "1997",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA North (USA-Canada-Mexico)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-pp-5-102-x-72-cm/2780499",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.500Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8P5-S 720 × 1020 mm",
+          "model": "Heidelberg SM 102-8P5-S 720 × 1020 mm",
+          "year": "2004",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (North East)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p5-s-720-1020-mm/2780467",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.500Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8P-S 720 × 1020 mm",
+          "model": "Heidelberg SM 102-8P-S 720 × 1020 mm",
+          "year": "2006",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (North East)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p-s-720-1020-mm/2780466",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.501Z"
+        },
+        {
+          "brand": "Heidelberg SM 102S+L 1020 x 720 mm",
+          "model": "Heidelberg SM 102S+L 1020 x 720 mm",
+          "year": "1991",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102s-l-1020-x-720-mm/2780210",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.501Z"
+        },
+        {
+          "brand": "Heidelberg SM 102/8 P 8 72x102",
+          "model": "Heidelberg SM 102/8 P 8 72x102",
+          "year": "2008",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p-8-72x102/2779199",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.502Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 720×1'020 mm",
+          "model": "Heidelberg SM 102-2P 720×1'020 mm",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-720-1-020-mm/2778416",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.502Z"
+        },
+        {
+          "brand": "Heidelberg SM 102/2 P 2 72x102",
+          "model": "Heidelberg SM 102/2 P 2 72x102",
+          "year": "2012",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2-p-2-72x102/2778099",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.502Z"
+        },
+        {
+          "brand": "Heidelberg SM 102ZP 28\"x40\"",
+          "model": "Heidelberg SM 102ZP 28\"x40\"",
+          "year": "1989",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102zp-28-x40/2777343",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.503Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 ZP 72 x 102 cm",
+          "model": "Heidelberg SM 102 ZP 72 x 102 cm",
+          "year": "1987",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA (Central and South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp-72-x-102-cm/2777259",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.503Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8P+L (X) (2000+) 720x1020 mm",
+          "model": "Heidelberg SM 102-8P+L (X) (2000+) 720x1020 mm",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p-l-x-2000-720x1020-mm/2776658",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.504Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5P (2000+) 720x1020 mm",
+          "model": "Heidelberg SM 102-5P (2000+) 720x1020 mm",
+          "year": "2006",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5p-2000-720x1020-mm/2776656",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.504Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 72×102",
+          "model": "Heidelberg SM 102-2P 72×102",
+          "year": "2018",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "MIDDLE EAST",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-72-102/2776333",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.505Z"
+        },
+        {
+          "brand": "Heidelberg Suprasetter A 105",
+          "model": "Heidelberg Suprasetter A 105",
+          "year": "2011",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-suprasetter-a-105/2776214",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.506Z"
+        },
+        {
+          "brand": "Heidelberg SM 102ZP 28\"x40\"",
+          "model": "Heidelberg SM 102ZP 28\"x40\"",
+          "year": "1980",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102zp-28-x40/2775988",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.506Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5",
+          "model": "Heidelberg SM 102-5",
+          "year": "2000",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5/2775275",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.506Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4 V 4 102 x 74 cm",
+          "model": "Heidelberg SM 102-4 V 4 102 x 74 cm",
+          "year": "1991",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-v-4-102-x-74-cm/2774729",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.507Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8 P 8 102 x 72 cm",
+          "model": "Heidelberg SM 102-8 P 8 102 x 72 cm",
+          "year": "1998",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p-8-102-x-72-cm/2754300",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.507Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2 P 2 102 x 72 cm",
+          "model": "Heidelberg SM 102-2 P 2 102 x 72 cm",
+          "year": "2008",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2-p-2-102-x-72-cm/2774655",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.507Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P B1",
+          "model": "Heidelberg SM 102-2P B1",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-b1/2774385",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.508Z"
+        },
+        {
+          "brand": "Heidelberg SM 102/4 P+L 4 72x102",
+          "model": "Heidelberg SM 102/4 P+L 4 72x102",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-p-l-4-72x102/2773209",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.508Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 5 PP + L",
+          "model": "Heidelberg SM 102 5 PP + L",
+          "year": "1997",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-pp-l/2773204",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.508Z"
+        },
+        {
+          "brand": "Luscher xPose 230 UV",
+          "model": "Luscher xPose 230 UV",
+          "year": "2008",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/luscher-xpose-230-uv/2772998",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.509Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4P (2000+) 720x1020 mm",
+          "model": "Heidelberg SM 102-4P (2000+) 720x1020 mm",
+          "year": "2003",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4p-2000-720x1020-mm/2772778",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.509Z"
+        },
+        {
+          "brand": "Heidelberg SM-102-5P3 28\" × 40\"",
+          "model": "Heidelberg SM-102-5P3 28\" × 40\"",
+          "year": "1995",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5p3-28-40/2772728",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.509Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8P 28”x40”",
+          "model": "Heidelberg SM 102-8P 28”x40”",
+          "year": "2006",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p-28-x40/2772599",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.510Z"
+        },
+        {
+          "brand": "Heidelberg Speedmaster SM 102-6 + L 720 x 1020 mm",
+          "model": "Heidelberg Speedmaster SM 102-6 + L 720 x 1020 mm",
+          "year": "2001",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA (Central and South)",
+          "url": "https://www.wotol.com/product/heidelberg-speedmaster-sm-102-6-l-720-x-1020-mm/2705484",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.510Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8P5-S 720 × 1020 MM",
+          "model": "Heidelberg SM 102-8P5-S 720 × 1020 MM",
+          "year": "2004",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (North East)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p5-s-720-1020-mm/2771642",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.510Z"
+        },
+        {
+          "brand": "Heidelberg SM 102/10PS 10 72x102",
+          "model": "Heidelberg SM 102/10PS 10 72x102",
+          "year": "2002",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-10ps-10-72x102/2771475",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.511Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2-P 72 x 102 cm",
+          "model": "Heidelberg SM 102-2-P 72 x 102 cm",
+          "year": "2014",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2-p-72-x-102-cm/2770823",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.512Z"
+        },
+        {
+          "brand": "Heidelberg SM 102SP 72x102",
+          "model": "Heidelberg SM 102SP 72x102",
+          "year": "1984",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102sp-72x102/2769601",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.512Z"
+        },
+        {
+          "brand": "Heidelberg Speedmaster sm 102-5 72x102 cm",
+          "model": "Heidelberg Speedmaster sm 102-5 72x102 cm",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-speedmaster-sm-102-5-72x102-cm/2769284",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.512Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 ZP",
+          "model": "Heidelberg SM 102 ZP",
+          "year": "1988",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp/2768819",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.513Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4-P",
+          "model": "Heidelberg SM 102-4-P",
+          "year": "2008",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "RUSSIA and Central Asia",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-p/2768790",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.513Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4 P L 102 x 74 cm",
+          "model": "Heidelberg SM 102-4 P L 102 x 74 cm",
+          "year": "2006",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-p-l-102-x-74-cm/2768752",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.513Z"
+        },
+        {
+          "brand": "Heidelberg SM-102-8-P5+L 8 28” x 40”",
+          "model": "Heidelberg SM-102-8-P5+L 8 28” x 40”",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA North (USA-Canada-Mexico)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p5-l-8-28-x-40/2768368",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.517Z"
+        },
+        {
+          "brand": "Heidelberg SM 102V+L 28\"x40\"",
+          "model": "Heidelberg SM 102V+L 28\"x40\"",
+          "year": "1991",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102v-l-28-x40/2767996",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.517Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 28\"x40\"",
+          "model": "Heidelberg SM 102-2P 28\"x40\"",
+          "year": "1995",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-28-x40/2767621",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.517Z"
+        },
+        {
+          "brand": "Heidelberg SM 102/4 P 4 72x102",
+          "model": "Heidelberg SM 102/4 P 4 72x102",
+          "year": "2008",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-p-4-72x102/2767326",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.518Z"
+        },
+        {
+          "brand": "Heidelberg SM 102+5-P3",
+          "model": "Heidelberg SM 102+5-P3",
+          "year": "1998",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-p3/2766900",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.518Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5P3 72x102 cm",
+          "model": "Heidelberg SM 102-5P3 72x102 cm",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "MIDDLE EAST",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5p3-72x102-cm/2765623",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.518Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5 P3",
+          "model": "Heidelberg SM 102-5 P3",
+          "year": "1998",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-p3/2765505",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.518Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4 28x40",
+          "model": "Heidelberg SM 102-4 28x40",
+          "year": "2002",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-28x40/2764595",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.519Z"
+        },
+        {
+          "brand": "Heidelberg SM102-5P+L",
+          "model": "Heidelberg SM102-5P+L",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA North (USA-Canada-Mexico)",
+          "url": "https://www.wotol.com/product/heidelberg-sm102-5p-l/2764166",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.519Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 8P5",
+          "model": "Heidelberg SM 102 8P5",
+          "year": "2009",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p5/2763957",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.519Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 28\"X40\"",
+          "model": "Heidelberg SM 102-2P 28\"X40\"",
+          "year": "1994",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-28-x40/2763590",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.520Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 ZP 720x1020 mm",
+          "model": "Heidelberg SM 102 ZP 720x1020 mm",
+          "year": "1989",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp-720x1020-mm/2762965",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.520Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 ZP 720 X 1020 MM",
+          "model": "Heidelberg SM 102 ZP 720 X 1020 MM",
+          "year": "1990",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA (Central and South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp-720-x-1020-mm/2762903",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.520Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4P",
+          "model": "Heidelberg SM 102-4P",
+          "year": "2005",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (North East)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4p/2762887",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.521Z"
+        },
+        {
+          "brand": "Heidelberg SM 102/8 P+L 8 72x102",
+          "model": "Heidelberg SM 102/8 P+L 8 72x102",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p-l-8-72x102/2761874",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.521Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 28'x40'",
+          "model": "Heidelberg SM 102-2P 28'x40'",
+          "year": "2004",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-28-x40/2761677",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.521Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2 P 2 72x102 cm",
+          "model": "Heidelberg SM 102-2 P 2 72x102 cm",
+          "year": "2001",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2-p-2-72x102-cm/2761577",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.522Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5 P2 3 720 x 1020 mm",
+          "model": "Heidelberg SM 102-5 P2 3 720 x 1020 mm",
+          "year": "1995",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-p2-3-720-x-1020-mm/2761287",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.522Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8-P5.S",
+          "model": "Heidelberg SM 102-8-P5.S",
+          "year": "2004",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p5-s/2760241",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.522Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8 P L 101 x 71 cm",
+          "model": "Heidelberg SM 102-8 P L 101 x 71 cm",
+          "year": "2006",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p-l-101-x-71-cm/2760228",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.523Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P 28x40 Inches",
+          "model": "Heidelberg SM 102-2P 28x40 Inches",
+          "year": "1998",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p-28x40-inches/2760225",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.523Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4-P3 101 x 71 cm",
+          "model": "Heidelberg SM 102-4-P3 101 x 71 cm",
+          "year": "2000",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-p3-101-x-71-cm/2760224",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.523Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 72 x 102 cm",
+          "model": "Heidelberg SM 102 72 x 102 cm",
+          "year": "AMERICA (Central and South)",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA (Central and South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-72-x-102-cm/2758621",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.524Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8P 74 x 102cm(s)",
+          "model": "Heidelberg SM 102-8P 74 x 102cm(s)",
+          "year": "2009",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p-74-x-102cm-s/2758001",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.524Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 8 P 72 x 102 cms",
+          "model": "Heidelberg SM 102 8 P 72 x 102 cms",
+          "year": "2007",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p-72-x-102-cms/2756592",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.524Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4",
+          "model": "Heidelberg SM 102-4",
+          "year": "2004",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "MIDDLE EAST",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4/2756043",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.525Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8 P 8 102 x 72 cm",
+          "model": "Heidelberg SM 102-8 P 8 102 x 72 cm",
+          "year": "1998",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p-8-102-x-72-cm/2755184",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.525Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 ZP 1020 × 720 mm",
+          "model": "Heidelberg SM 102 ZP 1020 × 720 mm",
+          "year": "1990",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp-1020-720-mm/2754967",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.525Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 FP 72 x 102 cm",
+          "model": "Heidelberg SM 102 FP 72 x 102 cm",
+          "year": "EUROPE (Western and Northern)",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-fp-72-x-102-cm/2754534",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.526Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5-P3 72x102 cm",
+          "model": "Heidelberg SM 102-5-P3 72x102 cm",
+          "year": "2003",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5-p3-72x102-cm/2752655",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.526Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8P 720×1’020 mm",
+          "model": "Heidelberg SM 102-8P 720×1’020 mm",
+          "year": "2005",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8p-720-1-020-mm/2752425",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.526Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5PH 720×1’020 mm",
+          "model": "Heidelberg SM 102-5PH 720×1’020 mm",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5ph-720-1-020-mm/2751422",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.527Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5P 720×1’020 mm",
+          "model": "Heidelberg SM 102-5P 720×1’020 mm",
+          "year": "1998",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5p-720-1-020-mm/2751051",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.527Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8-P",
+          "model": "Heidelberg SM 102-8-P",
+          "year": "2010",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p/2750913",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.527Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8 P 8 102 x 72 cm",
+          "model": "Heidelberg SM 102-8 P 8 102 x 72 cm",
+          "year": "1998",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p-8-102-x-72-cm/2749538",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.528Z"
+        },
+        {
+          "brand": "Heidelberg SM 102V 28x40",
+          "model": "Heidelberg SM 102V 28x40",
+          "year": "1994",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102v-28x40/2749195",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.528Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4 28x40",
+          "model": "Heidelberg SM 102-4 28x40",
+          "year": "2002",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-28x40/2749194",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.528Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-10P+ L(X) (2000+) 720x1020 mm 10",
+          "model": "Heidelberg SM 102-10P+ L(X) (2000+) 720x1020 mm 10",
+          "year": "2001",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-10p-l-x-2000-720x1020-mm-10/2747902",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.529Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4P 28\"x40\"",
+          "model": "Heidelberg SM 102-4P 28\"x40\"",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4p-28-x40/2747203",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.529Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5P3 720x1020 mm",
+          "model": "Heidelberg SM 102-5P3 720x1020 mm",
+          "year": "1995",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5p3-720x1020-mm/2747064",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.529Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 ZP 72 x 102 cm",
+          "model": "Heidelberg SM 102 ZP 72 x 102 cm",
+          "year": "1987",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA (Central and South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp-72-x-102-cm/2743536",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.530Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-ZP 72 x 102 cm",
+          "model": "Heidelberg SM 102-ZP 72 x 102 cm",
+          "year": "1994",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (North East)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp-72-x-102-cm/2743449",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.530Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2P",
+          "model": "Heidelberg SM 102-2P",
+          "year": "1995",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "AMERICA North (USA-Canada-Mexico)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2p/2743278",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.530Z"
+        },
+        {
+          "brand": "Heidelberg Speedmaster SM 102-8-P-S 72 x 102 cm",
+          "model": "Heidelberg Speedmaster SM 102-8-P-S 72 x 102 cm",
+          "year": "2001",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-speedmaster-sm-102-8-p-s-72-x-102-cm/2742418",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.531Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-ZP 72 x 102 cm",
+          "model": "Heidelberg SM 102-ZP 72 x 102 cm",
+          "year": "1994",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (North East)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp-72-x-102-cm/2741424",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.531Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4P+L",
+          "model": "Heidelberg SM 102-4P+L",
+          "year": "2008",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4p-l/2740579",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.532Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-2-P",
+          "model": "Heidelberg SM 102-2-P",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-2-p/2740577",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.532Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 ZP",
+          "model": "Heidelberg SM 102 ZP",
+          "year": "1990",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-zp/2740305",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.532Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 SP",
+          "model": "Heidelberg SM 102 SP",
+          "year": "1993",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-sp/2739409",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.532Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-8-P",
+          "model": "Heidelberg SM 102-8-P",
+          "year": "1995",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-8-p/2739406",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.533Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-5PL 28 X 40",
+          "model": "Heidelberg SM 102-5PL 28 X 40",
+          "year": "2006",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "ASIA (South)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-5pl-28-x-40/2739071",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.533Z"
+        },
+        {
+          "brand": "Heidelberg SM 102 FP 720 x 1020 mms",
+          "model": "Heidelberg SM 102 FP 720 x 1020 mms",
+          "year": "1991",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Western and Northern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-fp-720-x-1020-mms/2738752",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.533Z"
+        },
+        {
+          "brand": "Heidelberg SM 102-4 P UV Hybrid 4 72x102 cm",
+          "model": "Heidelberg SM 102-4 P UV Hybrid 4 72x102 cm",
+          "year": "2003",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "EUROPE (Central and Eastern)",
+          "url": "https://www.wotol.com/product/heidelberg-sm-102-4-p-uv-hybrid-4-72x102-cm/2738513",
+          "site": "Wotol",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:46:38.534Z"
+        }
+      ],
+      "savedAt": "2026-03-25T19:46:36.466Z"
+    },
+    {
+      "key": "{\"queries\":[\"ryobi\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "Ryobi",
+          "model": "524HE",
+          "year": "2004",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "Germany",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-524he-m4430.html",
+          "site": "OffsetPoint",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:57:25.380Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "755XLG 5-D",
+          "year": "2015",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "USA",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-755xlg-5-d-m4409.html",
+          "site": "OffsetPoint",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:57:25.383Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "920PF-8+LED",
+          "year": "2019",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "Europe",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-920pf-8-led-m4407.html",
+          "site": "OffsetPoint",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:57:25.385Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "525 GXP",
+          "year": "2008",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "Germany",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-525-gxp-m4283.html",
+          "site": "OffsetPoint",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:57:25.386Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "512",
+          "year": "1996",
+          "price": "—",
+          "priceNum": 0,
+          "condition": "N/D",
+          "location": "Germany",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-512-m3478.html",
+          "site": "OffsetPoint",
+          "currency": "EUR (€)",
+          "scrapedAt": "2026-03-25T19:57:25.388Z"
+        }
+      ],
+      "savedAt": "2026-03-25T19:57:22.385Z"
+    },
+    {
+      "key": "{\"queries\":[\"524\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "Ryobi",
+          "model": "524HE",
+          "year": "2004",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-524he-m4430.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T20:57:02.931Z"
+        }
+      ],
+      "savedAt": "2026-03-25T20:57:00.801Z"
+    },
+    {
+      "key": "{\"queries\":[\"Polar\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "Polar",
+          "model": "66 E",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/polar-66-e-m3335.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.767Z"
+        },
+        {
+          "brand": "Konica Minolta",
+          "model": "Bizhub Pro 951 (black / white)",
+          "year": "2013",
+          "url": "https://www.offsetpoint.com/en/machines/konica-minolta-bizhub-pro-951-black-white-m4036.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.768Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "KS Cylinder 38x52",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-ks-cylinder-38x52-m4099.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.769Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "SM 102-2-P",
+          "year": "1998",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-sm-102-2-p-m4103.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.770Z"
+        },
+        {
+          "brand": "MAN Miller",
+          "model": "TP 74-2",
+          "year": "1991",
+          "url": "https://www.offsetpoint.com/en/machines/man-miller-tp-74-2-m4114.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.771Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "GTO 52",
+          "year": "1991",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-gto-52-m4116.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.771Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "SM 52-2",
+          "year": "2002",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-sm-52-2-m4120.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.772Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "Versant 180 Press",
+          "year": "2016",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-versant-180-press-m4147.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.773Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "Versant 180 Press",
+          "year": "2016",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-versant-180-press-m4148.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.775Z"
+        },
+        {
+          "brand": "EPSON",
+          "model": "Stylus Pro 7900",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/epson-stylus-pro-7900-m4149.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.776Z"
+        },
+        {
+          "brand": "Laconda",
+          "model": "620",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/laconda-620-m4152.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.778Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "SORM",
+          "year": "1990",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-sorm-m4165.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.779Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "D136",
+          "year": "2014",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-d136-m4168.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.780Z"
+        },
+        {
+          "brand": "Horizon",
+          "model": "Horizon Collator MC-80a + MC-80m + Stitcher & Folder SPF-11 + FC-11",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/horizon-horizon-collator-mc-80a-mc-80m-stitcher-folder-spf-11-fc-11-m4198.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.825Z"
+        },
+        {
+          "brand": "Horizon",
+          "model": "Collator AC-6000",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/horizon-collator-ac-6000-m4199.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.825Z"
+        },
+        {
+          "brand": "Hewlett Packard",
+          "model": "Indigo 7500",
+          "year": "2011",
+          "url": "https://www.offsetpoint.com/en/machines/hewlett-packard-indigo-7500-m4203.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.825Z"
+        },
+        {
+          "brand": "Hewlett Packard",
+          "model": "Indigo 7500",
+          "year": "2011",
+          "url": "https://www.offsetpoint.com/en/machines/hewlett-packard-indigo-7500-m4204.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.826Z"
+        },
+        {
+          "brand": "Kodak",
+          "model": "NexPress SX 3300",
+          "year": "2014",
+          "url": "https://www.offsetpoint.com/en/machines/kodak-nexpress-sx-3300-m4205.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.826Z"
+        },
+        {
+          "brand": "Kodak",
+          "model": "NexPress 2500",
+          "year": "2017",
+          "url": "https://www.offsetpoint.com/en/machines/kodak-nexpress-2500-m4206.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.826Z"
+        },
+        {
+          "brand": "MBO",
+          "model": "T 460",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/mbo-t-460-m4209.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.826Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "GTOZP 52+",
+          "year": "1987",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-gtozp-52-m4211.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.827Z"
+        },
+        {
+          "brand": "MAN Roland",
+          "model": "R 504",
+          "year": "2005",
+          "url": "https://www.offsetpoint.com/en/machines/man-roland-r-504-m4225.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.827Z"
+        },
+        {
+          "brand": "Konica Minolta",
+          "model": "bizhub PRESS C1100",
+          "year": "2018",
+          "url": "https://www.offsetpoint.com/en/machines/konica-minolta-bizhub-press-c1100-m4228.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.827Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "GTO 52-4-P3",
+          "year": "2003",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-gto-52-4-p3-m4233.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.828Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "Nuvera 120 EA",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-nuvera-120-ea-m4242.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.828Z"
+        },
+        {
+          "brand": "KBA Koenig & Bauer",
+          "model": "Karat 74 DI",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/kba-koenig-bauer-karat-74-di-m4243.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.829Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "SM 52-2-P",
+          "year": "1999",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-sm-52-2-p-m4246.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.829Z"
+        },
+        {
+          "brand": "Horizon",
+          "model": "BQ-270",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/horizon-bq-270-m4264.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.829Z"
+        },
+        {
+          "brand": "BOBST",
+          "model": "SP 142 CER",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/bobst-sp-142-cer-m4274.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.829Z"
+        },
+        {
+          "brand": "Theisen Bonitz",
+          "model": "tb sprint B318 VP + 304 QSM",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/theisen-bonitz-tb-sprint-b318-vp-304-qsm-m4278.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.830Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "525 GXP",
+          "year": "2008",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-525-gxp-m4283.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.830Z"
+        },
+        {
+          "brand": "Duplo",
+          "model": "System 4000",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/duplo-system-4000-m4284.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.830Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "D110",
+          "year": "20181000",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-d110-m4288.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.830Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "D110",
+          "year": "2018",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-d110-m4289.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.831Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "Primelink B9136",
+          "year": "2023",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-primelink-b9136-m4290.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.831Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "Versant 280",
+          "year": "2023",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-versant-280-m4291.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.831Z"
+        },
+        {
+          "brand": "Duplo",
+          "model": "System 2000",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/duplo-system-2000-m4292.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.832Z"
+        },
+        {
+          "brand": "MAN Roland",
+          "model": "RZF 0B",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/man-roland-rzf-0b-m4294.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.832Z"
+        },
+        {
+          "brand": "MAN Roland",
+          "model": "RZF 0B",
+          "year": "1979",
+          "url": "https://www.offsetpoint.com/en/machines/man-roland-rzf-0b-m4295.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.833Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "QM 46-2",
+          "year": "1996",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-qm-46-2-m4304.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.833Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "PM 52-5",
+          "year": "2007",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-pm-52-5-m4308.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.834Z"
+        },
+        {
+          "brand": "MB Bäuerle",
+          "model": "Multimaster CAS 35",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/mb-baeuerle-multimaster-cas-35-m4319.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.834Z"
+        },
+        {
+          "brand": "Polar",
+          "model": "115 ED-AT",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/polar-115-ed-at-m4337.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.835Z"
+        },
+        {
+          "brand": "Polar",
+          "model": "137 XT-AT",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/polar-137-xt-at-m4339.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.835Z"
+        },
+        {
+          "brand": "Xerox",
+          "model": "DC 700",
+          "year": "2011",
+          "url": "https://www.offsetpoint.com/en/machines/xerox-dc-700-m4340.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.835Z"
+        },
+        {
+          "brand": "MAN Roland",
+          "model": "PR 01",
+          "year": "1990",
+          "url": "https://www.offsetpoint.com/en/machines/man-roland-pr-01-m4348.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.835Z"
+        },
+        {
+          "brand": "Konica Minolta",
+          "model": "C6120",
+          "year": "2022",
+          "url": "https://www.offsetpoint.com/en/machines/konica-minolta-c6120-m4358.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.836Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "T / PLATEN - A3",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-t-platen-a3-m4385.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.836Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "CYLINDER OHZ - 54 x 72 cm",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-cylinder-ohz-54-x-72-cm-m4386.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.836Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "GTO 46",
+          "year": "1978",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-gto-46-m4390.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.836Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "MO-S",
+          "year": "1993",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-mo-s-m4391.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.837Z"
+        },
+        {
+          "brand": "Polar",
+          "model": "92 E",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/polar-92-e-m4392.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.837Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "SBG",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-sbg-m4393.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.837Z"
+        },
+        {
+          "brand": "MAN Roland",
+          "model": "R 705 3B",
+          "year": "2000",
+          "url": "https://www.offsetpoint.com/en/machines/man-roland-r-705-3b-m4394.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.837Z"
+        },
+        {
+          "brand": "Polly",
+          "model": "266 APH",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/polly-266-aph-m4402.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.838Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "920PF-8+LED",
+          "year": "2019",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-920pf-8-led-m4407.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.838Z"
+        },
+        {
+          "brand": "RMGT",
+          "model": "970ST-5+LED",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/rmgt-970st-5-led-m4408.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.838Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "755XLG 5-D",
+          "year": "2015",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-755xlg-5-d-m4409.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.839Z"
+        },
+        {
+          "brand": "Heidelberg",
+          "model": "Stahlfolder Ti 52-4",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/heidelberg-stahlfolder-ti-52-4-m4429.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.839Z"
+        },
+        {
+          "brand": "Ryobi",
+          "model": "524HE",
+          "year": "2004",
+          "url": "https://www.offsetpoint.com/en/machines/ryobi-524he-m4430.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.840Z"
+        },
+        {
+          "brand": "Horizon",
+          "model": "StitchLiner Mark III",
+          "year": "N/D",
+          "url": "https://www.offsetpoint.com/en/machines/horizon-stitchliner-mark-iii-m4431.html",
+          "site": "OffsetPoint",
+          "scrapedAt": "2026-03-25T21:23:01.840Z"
+        }
+      ],
+      "savedAt": "2026-03-25T21:22:59.295Z"
+    },
+    {
+      "key": "{\"queries\":[\"sm52\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "N/D",
+          "model": "N/D",
+          "year": "N/D",
+          "url": "",
+          "site": "Pressdepo",
+          "scrapedAt": "2026-03-25T22:23:16.490Z"
+        }
+      ],
+      "savedAt": "2026-03-25T22:23:16.492Z"
+    },
+    {
+      "key": "{\"queries\":[\"sm 52\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "N/D",
+          "model": "N/D",
+          "year": "N/D",
+          "url": "",
+          "site": "Pressdepo",
+          "scrapedAt": "2026-03-25T22:50:02.075Z"
+        }
+      ],
+      "savedAt": "2026-03-25T22:50:02.076Z"
+    },
+    {
+      "key": "{\"queries\":[\"polar\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "N/D",
+          "model": "N/D",
+          "year": "N/D",
+          "url": "",
+          "site": "Pressdepo",
+          "scrapedAt": "2026-03-25T22:51:06.453Z"
+        }
+      ],
+      "savedAt": "2026-03-25T22:51:06.454Z"
+    },
+    {
+      "key": "{\"queries\":[\"SM 52-2 P\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "N/D",
+          "model": "N/D",
+          "year": "N/D",
+          "url": "",
+          "site": "Pressdepo",
+          "scrapedAt": "2026-03-25T22:55:09.593Z"
+        }
+      ],
+      "savedAt": "2026-03-25T22:55:09.594Z"
+    },
+    {
+      "key": "{\"queries\":[\"SM 52-5PH LX\"],\"siteIds\":[]}",
+      "results": [
+        {
+          "brand": "N/D",
+          "model": "N/D",
+          "year": "N/D",
+          "url": "",
+          "site": "Pressdepo",
+          "scrapedAt": "2026-03-25T23:08:21.526Z"
+        }
+      ],
+      "savedAt": "2026-03-25T23:08:21.527Z"
+    }
+  ]
+}

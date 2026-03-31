@@ -22,7 +22,7 @@ const rateLimit   = require('express-rate-limit');
 const db          = require('./db');
 const apifySvc    = require('./apify.service');
 const dedupSvc    = require('./dedup.service');
-
+const path        = require('path');        // ← ADICIONA ESTA LINHA
 const app  = express();
 const PORT = process.env.PORT || 3001;
 

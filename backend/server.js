@@ -31,12 +31,31 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-// SUBSTITUI a linha anterior do express.static por estas:
-const frontendPath = process.env.NODE_ENV === 'production'
-  ? '.builds/source/repository/frontend/public'
-  : path.join(__dirname, '../frontend/public');
+const path = require('path');
 
+// Serve ficheiros estáticos
+const frontendPath = process.env.FRONTEND_PATH || path.join(__dirname, '../frontend/public');
 app.use(express.static(frontendPath));
+
+// Rota raiz explícita — garante que / carrega o index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
+// Fallback para SPA — todas as rotas carregam o index.html
+app.get('*', (req, res) => {
+  const indexPath = path.join(frontendPath, 'index.html');
+  const fs = require('fs');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).json({ 
+      error: 'Frontend não encontrado', 
+      procurou: indexPath,
+      dirname: __dirname 
+    });
+  }
+});
 
 // Rate limiting
 const limiter = rateLimit({

@@ -33,7 +33,7 @@ app.use(express.json());
 
 // SUBSTITUI a linha anterior do express.static por estas:
 const frontendPath = process.env.NODE_ENV === 'production'
-  ? '/home/u895337781/domains/buscas.printonicsapp.fr/public_html/.builds/source/repository/frontend/public'
+  ? '.builds/source/repository/frontend/public'
   : path.join(__dirname, '../frontend/public');
 
 app.use(express.static(frontendPath));

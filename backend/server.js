@@ -31,8 +31,6 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-const path = require('path');
-
 // Serve ficheiros estáticos
 const frontendPath = process.env.FRONTEND_PATH || path.join(__dirname, '../frontend/public');
 app.use(express.static(frontendPath));

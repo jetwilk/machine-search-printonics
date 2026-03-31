@@ -28,14 +28,20 @@ const PORT = process.env.PORT || 3001;
 
 // ── Middlewares ───────────────────────────────────────────────────────────────
 
-app.use(cors({ origin: '*' }));   // Em produção: restringir ao domínio do frontend
+app.use(cors({ origin: '*' }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend/public')));
 
-// Rate limiting — evitar abuso da API Apify
+// SUBSTITUI a linha anterior do express.static por estas:
+const frontendPath = process.env.NODE_ENV === 'production'
+  ? '/home/u895337781/domains/buscas.printonicsapp.fr/public_html/.builds/source/repository/frontend/public'
+  : path.join(__dirname, '../frontend/public');
+
+app.use(express.static(frontendPath));
+
+// Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,   // 15 minutos
-  max:      50,                // máximo 50 pedidos por IP
+  windowMs: 15 * 60 * 1000,
+  max:      50,
   message:  { error: 'Muitos pedidos. Tenta novamente em 15 minutos.' }
 });
 app.use('/api/search', limiter);

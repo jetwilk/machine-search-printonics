@@ -26,6 +26,27 @@ const path        = require('path');        // ← ADICIONA ESTA LINHA
 const app  = express();
 const PORT = process.env.PORT || 3001;
 
+app.get('/debug', (req, res) => {
+  const fs = require('fs');
+  const paths = [
+    path.join(__dirname, 'frontend/public'),
+    path.join(__dirname, '../frontend/public'),
+    path.join(__dirname, 'public'),
+    '/home/u895337781/domains/buscas.printonicsapp.fr/public_html/.builds/source/repository/frontend/public',
+    '/home/u895337781/domains/buscas.printonicsapp.fr/nodejs/frontend/public',
+  ];
+  
+  const result = {};
+  paths.forEach(p => {
+    result[p] = {
+      existe: fs.existsSync(p),
+      temIndex: fs.existsSync(path.join(p, 'index.html'))
+    };
+  });
+  
+  res.json({ __dirname, frontendPath: process.env.FRONTEND_PATH || 'não definido', paths: result });
+});
+
 // ── Middlewares ───────────────────────────────────────────────────────────────
 
 app.use(cors({ origin: '*' }));
